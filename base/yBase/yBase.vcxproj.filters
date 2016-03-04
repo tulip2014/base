@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="baselib">
+      <UniqueIdentifier>{33b2353b-1dbc-42a4-81e2-40b39afd981b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="baselib\pathhelp">
+      <UniqueIdentifier>{a16a00b4-5ce9-487d-aa04-80ef333c9df5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="baselib\win32ulity">
+      <UniqueIdentifier>{47750a6a-6704-4234-9bbc-3ef826d2582e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="baselib\win32ulity\resource">
+      <UniqueIdentifier>{87631e50-cda2-4ef2-af74-3954f3cc0e08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="baselib\DesignPattern">
+      <UniqueIdentifier>{9387e6a3-ad4d-4dc9-8ad2-8853098ab287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="baselib\com">
+      <UniqueIdentifier>{ad90df36-05e0-4a1c-9c84-9d387ae5c7ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="baselib\osHelper">
+      <UniqueIdentifier>{1b33450b-6cd5-4a96-9311-275d8aa6d2c8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\pathhelp\AnalyseCmdLine.h">
+      <Filter>baselib\pathhelp</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\pathhelp\MsAnalyseCmdLine.h">
+      <Filter>baselib\pathhelp</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\win32ulity\resource\ApplicationAttribute.h">
+      <Filter>baselib\win32ulity\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\baselib.h">
+      <Filter>baselib</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\win32ulity\resource\DynamicRun.h">
+      <Filter>baselib\win32ulity\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\DesignPattern\Factory.h">
+      <Filter>baselib\DesignPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\DesignPattern\FactoryMethod.h">
+      <Filter>baselib\DesignPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\win32ulity\resource\WindowOperator.h">
+      <Filter>baselib\win32ulity\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\pathhelp\filepath.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\DesignPattern\DesignPattern.h">
+      <Filter>baselib\DesignPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\DesignPattern\Stragery.h">
+      <Filter>baselib\DesignPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\DesignPattern\Decorate.h">
+      <Filter>baselib\DesignPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\DesignPattern\Proxy.h">
+      <Filter>baselib\DesignPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\DesignPattern\constuse.h">
+      <Filter>baselib\DesignPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\DesignPattern\Observer.h">
+      <Filter>baselib\DesignPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\com\IUnknown.h">
+      <Filter>baselib\com</Filter>
+    </ClInclude>
+    <ClInclude Include="baselib\osHelper\ProcessHelper.h">
+      <Filter>baselib\osHelper</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="yBase.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="baselib\pathhelp\filepath.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="baselib\com\IUnknown.cpp">
+      <Filter>baselib\com</Filter>
+    </ClCompile>
+    <ClCompile Include="baselib\osHelper\ProcessHelper.cpp">
+      <Filter>baselib\osHelper</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="yBase.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

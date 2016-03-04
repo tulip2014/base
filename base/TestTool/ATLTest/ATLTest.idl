@@ -1,0 +1,18 @@
+// ATLTest.idl : ATLTest 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(ATLTest.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(375B286D-173A-4F8D-8B4A-758123766119),
+	version(1.0),
+]
+library ATLTestLib
+{
+	importlib("stdole2.tlb");
+};
+

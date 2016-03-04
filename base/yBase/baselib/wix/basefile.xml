@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!--candle.exe -dVersion=1.0.0  a.xml -out 1.0.0/-->
+<!--light.exe -out 1.0.0/Sample.msi 1.0.0/a.wixobj-->
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>   
+	<Product Name='MsiSetup' Id='{209478F6-44B7-412B-BEC0-2F6AA8BBE574}' UpgradeCode='{F4F8195E-E907-42dd-BB90-CC2403FA7384}'   
+		Language='1033' Codepage='1252' Version='SETUP_VERSION' Manufacturer='SETUP_COMPANYNAME'>   
+
+		<Package Id='{55E386CD-445B-4778-A7AC-71F104EBE552}' Keywords='Installer' Description="SETUP_PRODUCTNAME"   
+			Comments='SETUP_PRODUCTNAME' Manufacturer='SETUP_COMPANYNAME'   
+			InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />   
+		
+		<Media Id="1" Cabinet="myapplication.cab" EmbedCab="yes" />
+		
+		<!-- Step 1: Define the directory structure -->
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder">
+                <Directory Id="APPLICATIONROOTDIRECTORY" Name="dlsetup"/>
+            </Directory>
+        </Directory>
+		
+		<!-- Step 2: Add files to your installer package -->
+        <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
+            <Component Id="InstallTool" Guid="01A2C7FB-AAEF-8CB2-DD1A-6B7467FA2111">
+                <File Id="InstallTool" Source=".\source\InstallTool.exe" KeyPath="yes" Checksum="yes"/>
+            </Component>
+			<Component Id="RunSetup" Guid="01A2C7FB-AAEF-8CB2-DD1A-6B7467FA1234">
+                <File Id="RunSetup" Source=".\source\RunSetup.exe" KeyPath="yes" Checksum="yes"/>
+            </Component>
+			<Component Id="sourcefile" Guid="01A2C7FB-AAEF-8CB2-DD1A-6B7467FA5678">
+                <File Id="sourcefile" Source=".\source\sourcefile.7z" KeyPath="yes" Checksum="yes"/>
+            </Component>
+        </DirectoryRef>
+		
+		<Property Id="QtExecCmdLine" Value="/quiet"/>
+		<!--CustomAction Id="QtExecExample" BinaryKey="WixCA" DllEntry="CAQuietExec" Execute="immediate" Return="ignore"/-->
+
+		
+		<!-- Step 3: Tell WiX to install the files -->
+        <Feature Id="MainApplication" Title="Main Application" Level="1">
+            <ComponentRef Id="InstallTool" />
+			<ComponentRef Id="RunSetup" />
+			<ComponentRef Id="sourcefile" />
+        </Feature>
+		
+		<Binary Id="uninstall" SourceFile="uninstall.exe" />
+		<!--Binary Id="uninstallmaster" SourceFile="printl.exe" /-->
+		
+		<InstallExecuteSequence>
+			<Custom Action='RunMSI' After='InstallFinalize' /> 
+			<!--Custom Action="QtExecExample" After="CostInitialize"/-->
+	        <!--Custom Action='SetCmdPathWeb' After='InstallFinalize' /-->
+			<!--Custom Action='BinaryPrint' After='CostInitialize' /-->
+	    </InstallExecuteSequence>
+		
+	</Product>
+	
+	<Fragment>
+		<!--CustomAction Id='BinaryPrint' BinaryKey='print' ExeCommand="123" Return="ignore"/-->
+		<!--CustomAction Id='Setup' BinaryKey='uninstall' ExeCommand="123qwe" Return="ignore"/-->
+		<CustomAction Id='RunMSI' FileKey='InstallTool' ExeCommand="SETUP_COMMANDLINE" Return="ignore"/>
+	</Fragment>
+ </Wix>
