@@ -53,6 +53,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MessageFormat", "windowshan
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "T2Uncode", "windowshandle\T2Uncode\T2Uncode.vcxproj", "{59288C5C-E3E8-4E82-BBF6-020DFC354E73}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "baselib", "baselib", "{2D0E4C38-FFC5-44C9-AF2E-A948A74A3960}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "basehelper", "baselib\basehelper\basehelper.vcxproj", "{71B1BAFC-0EFA-43F1-BCB2-690B59771D0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -179,6 +183,12 @@ Global
 		{59288C5C-E3E8-4E82-BBF6-020DFC354E73}.Release|Win32.ActiveCfg = Release|Win32
 		{59288C5C-E3E8-4E82-BBF6-020DFC354E73}.Release|Win32.Build.0 = Release|Win32
 		{59288C5C-E3E8-4E82-BBF6-020DFC354E73}.Release|Win32.Deploy.0 = Release|Win32
+		{71B1BAFC-0EFA-43F1-BCB2-690B59771D0C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{71B1BAFC-0EFA-43F1-BCB2-690B59771D0C}.Debug|Win32.Build.0 = Debug|Win32
+		{71B1BAFC-0EFA-43F1-BCB2-690B59771D0C}.Debug|Win32.Deploy.0 = Debug|Win32
+		{71B1BAFC-0EFA-43F1-BCB2-690B59771D0C}.Release|Win32.ActiveCfg = Release|Win32
+		{71B1BAFC-0EFA-43F1-BCB2-690B59771D0C}.Release|Win32.Build.0 = Release|Win32
+		{71B1BAFC-0EFA-43F1-BCB2-690B59771D0C}.Release|Win32.Deploy.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -203,5 +213,6 @@ Global
 		{640E2633-A52A-4126-BB2D-B974A88CB075} = {8BC8018C-9621-4137-BB7F-02EEBC9EB360}
 		{DC85CF13-367B-49FC-888A-BBF1486C798D} = {148516CB-2E76-46C6-95D2-9DA221F3643F}
 		{9166019D-E81F-42E5-97B9-2D8F6B2D797C} = {3C8C0CF5-80EE-441B-8158-31385E9EFDA4}
+		{71B1BAFC-0EFA-43F1-BCB2-690B59771D0C} = {2D0E4C38-FFC5-44C9-AF2E-A948A74A3960}
 	EndGlobalSection
 EndGlobal
