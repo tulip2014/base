@@ -59,6 +59,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "basehelper", "baselib\baseh
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestDll", "baselib\testdll\TestDll\TestDll.vcxproj", "{C8F3618C-CA2B-415E-8686-E94F411C3C05}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestModule", "baselib\TestModule\TestModule.vcxproj", "{F20A2E2D-DE60-4AC2-9ABB-6A45B30B6D66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -197,6 +199,12 @@ Global
 		{C8F3618C-CA2B-415E-8686-E94F411C3C05}.Release|Win32.ActiveCfg = Release|Win32
 		{C8F3618C-CA2B-415E-8686-E94F411C3C05}.Release|Win32.Build.0 = Release|Win32
 		{C8F3618C-CA2B-415E-8686-E94F411C3C05}.Release|Win32.Deploy.0 = Release|Win32
+		{F20A2E2D-DE60-4AC2-9ABB-6A45B30B6D66}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F20A2E2D-DE60-4AC2-9ABB-6A45B30B6D66}.Debug|Win32.Build.0 = Debug|Win32
+		{F20A2E2D-DE60-4AC2-9ABB-6A45B30B6D66}.Debug|Win32.Deploy.0 = Debug|Win32
+		{F20A2E2D-DE60-4AC2-9ABB-6A45B30B6D66}.Release|Win32.ActiveCfg = Release|Win32
+		{F20A2E2D-DE60-4AC2-9ABB-6A45B30B6D66}.Release|Win32.Build.0 = Release|Win32
+		{F20A2E2D-DE60-4AC2-9ABB-6A45B30B6D66}.Release|Win32.Deploy.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -223,5 +231,6 @@ Global
 		{9166019D-E81F-42E5-97B9-2D8F6B2D797C} = {3C8C0CF5-80EE-441B-8158-31385E9EFDA4}
 		{71B1BAFC-0EFA-43F1-BCB2-690B59771D0C} = {2D0E4C38-FFC5-44C9-AF2E-A948A74A3960}
 		{C8F3618C-CA2B-415E-8686-E94F411C3C05} = {2D0E4C38-FFC5-44C9-AF2E-A948A74A3960}
+		{F20A2E2D-DE60-4AC2-9ABB-6A45B30B6D66} = {2D0E4C38-FFC5-44C9-AF2E-A948A74A3960}
 	EndGlobalSection
 EndGlobal
