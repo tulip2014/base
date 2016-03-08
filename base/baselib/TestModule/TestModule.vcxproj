@@ -43,6 +43,8 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\bin</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
+    <IncludePath>$(SolutionDir)\baselib\testdll\TestDll;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
