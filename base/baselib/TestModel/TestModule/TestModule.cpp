@@ -45,7 +45,9 @@ void GetStaticVariable() {
 	int a = 0;
 	a = *(int*)GetProcAddress(hTest, "nTestDll");
 	
-	int b = a;
+	TCHAR szResult[MAX_PATH] = {0};
+	_stprintf_s(szResult, MAX_PATH, _T("%d"), a);
+	MessageBox(NULL, szResult, _T("test"), MB_OK);
 }
 
 
@@ -53,7 +55,10 @@ void StaticLoad() {
 	int a = 1;
 	int b = 2;
 	int c = fnTestDll(a, b);
-	b = b + 1;
+
+	TCHAR szResult[MAX_PATH] = {0};
+	_stprintf_s(szResult, MAX_PATH, _T("%d"), c);
+	MessageBox(NULL, szResult, _T("test"), MB_OK);
 }
 
 
@@ -67,9 +72,9 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	//DynamicLoad();
 
-	GetStaticVariable();
+	//GetStaticVariable();
 
-	//StaticLoad();
+	StaticLoad();
 	return 0;
 }
 
