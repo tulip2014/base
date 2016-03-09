@@ -29,7 +29,21 @@ TCHAR szSvcName[80] = {0};
 SC_HANDLE schSCManager;
 SC_HANDLE schService;
 int uaquit;  
-FILE* log;  
+
+
+void WriteFile(LPCTSTR lpStr) {
+	FILE* log = NULL;
+	_tfopen_s(&log, L"e:\\test.txt", L"a+");
+	_ftprintf(log, lpStr);
+	_ftprintf(log, L"\n");
+	fclose(log);
+}
+
+void WriteFile(DWORD dwCount) {
+	TCHAR szCount[MAX_PATH] = {0};
+	_stprintf_s(szCount, MAX_PATH, _T("%d"), dwCount);
+	WriteFile(szCount);
+}
 
 
 DWORD WINAPI srv_core_thread(LPVOID para)  
@@ -40,7 +54,8 @@ DWORD WINAPI srv_core_thread(LPVOID para)
 		if(uaquit)  
 		{  
 			break;   
-		}  
+		}
+		WriteFile(GetTickCount());
 		Sleep(5000);   
 	}      
 	return NULL;   
@@ -58,9 +73,7 @@ void WINAPI ServiceHandler(DWORD fdwControl)
 		ServiceStatus.dwCheckPoint    = 0;   
 		ServiceStatus.dwWaitHint      = 0;  
 		uaquit= 1;  
-		//add you quit code here  
-		if(log != NULL)  
-			fclose(log);  
+
 		break;   
 	default:  
 		return;   
@@ -74,7 +87,8 @@ void WINAPI ServiceHandler(DWORD fdwControl)
   
     
 void WINAPI service_main(int argc, char** argv)   
-{         
+{
+	WriteFile(L"3");
     ServiceStatus.dwServiceType        = SERVICE_WIN32;   
     ServiceStatus.dwCurrentState       = SERVICE_START_PENDING;   
     ServiceStatus.dwControlsAccepted   = SERVICE_ACCEPT_STOP | SERVICE_ACCEPT_SHUTDOWN | SERVICE_ACCEPT_PAUSE_CONTINUE;   
@@ -89,25 +103,25 @@ void WINAPI service_main(int argc, char** argv)
         DWORD nError = GetLastError();  
     }
 
-    //add your init code here  
-    _tfopen_s(&log, L"d:\\test.txt", L"w");
 
     //add your service thread here  
     HANDLE task_handle = CreateThread(NULL,NULL,srv_core_thread,NULL,NULL,NULL);  
     if(task_handle == NULL)  
     {  
-        _ftprintf(log, L"create srv_core_thread failed\n");  
+        WriteFile(L"create srv_core_thread failed\n");  
     }  
       
     // Initialization complete - report running status   
     ServiceStatus.dwCurrentState       = SERVICE_RUNNING;   
     ServiceStatus.dwCheckPoint         = 0;   
     ServiceStatus.dwWaitHint           = 9000;
+	WriteFile(L"4");
     if(!SetServiceStatus(hServiceStatusHandle, &ServiceStatus))   
     {   
         DWORD nError = GetLastError();  
     }   
-   
+
+	WriteFile(L"5");
 }
 
 
@@ -119,6 +133,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
+	WriteFile(L"1");
+
 	SERVICE_TABLE_ENTRY ServiceTable[2];  
 
 	ServiceTable[0].lpServiceName = (SERVICE_NAME);  
@@ -128,7 +144,9 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	ServiceTable[1].lpServiceProc = NULL;
 
 	// start dispatch thread  
-	StartServiceCtrlDispatcher(ServiceTable);   
+	StartServiceCtrlDispatcher(ServiceTable);
+
+	WriteFile(L"2");
 
 	return 0;
 }
