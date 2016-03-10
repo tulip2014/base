@@ -16,6 +16,9 @@
     <Filter Include="utils">
       <UniqueIdentifier>{cf2d9017-44af-4be7-9f85-2f2343823e8d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{c233baee-73be-4573-abde-ed3ba473a22c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -36,6 +39,12 @@
     <ClInclude Include="utils\OSHelper.h">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="utils\AppUtils.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Singleton.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -45,6 +54,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="utils\OSHelper.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\AppUtils.cpp">
       <Filter>utils</Filter>
     </ClCompile>
   </ItemGroup>

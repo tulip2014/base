@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "basehelper.h"
 #include "utils/OSHelper.h"
+#include "common/Singleton.h"
 
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
@@ -15,11 +16,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
 
-	bool a = OSHelper::IsWow64();
-
-	TCHAR szUserName[MAX_PATH] = {0};
-	DWORD dwSize = MAX_PATH;
-	GetUserName(szUserName, &dwSize);
+	SingletonStatic::getInstance();
 
  	return 0;
 }

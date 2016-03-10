@@ -135,7 +135,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	WriteFile(L"1");
 
-	SERVICE_TABLE_ENTRY ServiceTable[2];  
+	SERVICE_TABLE_ENTRY ServiceTable[2];
 
 	ServiceTable[0].lpServiceName = (SERVICE_NAME);  
 	ServiceTable[0].lpServiceProc = (LPSERVICE_MAIN_FUNCTION)service_main;  
