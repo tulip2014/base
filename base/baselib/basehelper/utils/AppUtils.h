@@ -13,6 +13,7 @@
 #pragma once
 
 #include "..\common\Singleton.h"
+#include "Windows.h"
 
 
 class CAppUtils : public SingletonStatic<CAppUtils>
@@ -21,5 +22,6 @@ public:
 	CAppUtils();
 	~CAppUtils();
 
-
+	// determine whether application is already running based on mutex
+	bool IsAppExist(LPCTSTR csAppGUID);
 };
