@@ -23,5 +23,8 @@ public:
 	~CAppUtils();
 
 	// determine whether application is already running based on mutex
-	bool IsAppExist(LPCTSTR csAppGUID);
+	bool IsAppExist( LPCTSTR csAppGUID );
+
+	// get application version, read from main file
+	bool GetVersion( LPTSTR lpcsVersion, DWORD dwSize = 20 );
 };

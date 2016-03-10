@@ -45,6 +45,9 @@
     <ClInclude Include="common\Singleton.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="utils\PathUtils.h">
+      <Filter>utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -57,6 +60,9 @@
       <Filter>utils</Filter>
     </ClCompile>
     <ClCompile Include="utils\AppUtils.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\PathUtils.cpp">
       <Filter>utils</Filter>
     </ClCompile>
   </ItemGroup>

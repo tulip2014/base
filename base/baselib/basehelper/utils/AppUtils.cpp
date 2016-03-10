@@ -14,9 +14,15 @@
 #include "AppUtils.h"
 
 
-//****************************************************************
-// determine whether application is already running. based on mutex
-
+//************************************
+// Method:    IsAppExist
+// FullName:  CAppUtils::IsAppExist
+// Access:    public 
+// Returns:   bool
+// Qualifier:
+// Parameter: LPCTSTR csAppGUID
+// purpose:   determine whether application is already running. based on mutex
+//************************************
 bool CAppUtils::IsAppExist( LPCTSTR csAppGUID )
 {
 	HANDLE hMutex = ::CreateMutex( NULL, FALSE, csAppGUID );
@@ -28,4 +34,14 @@ bool CAppUtils::IsAppExist( LPCTSTR csAppGUID )
 
 	::CloseHandle( hMutex );
 	return ( nLastErr == ERROR_ALREADY_EXISTS ) ? true : false;
+}
+
+//****************************************************************
+// get application version, read from main file
+bool CAppUtils::GetVersion( LPTSTR lpcsVersion, DWORD dwSize )
+{
+	TCHAR csVersionPath[MAX_PATH] = { 0 };
+	//PathMgr()->GetVersionFile( csVersionPath );
+	//return GetMainFileVersion(csVersionPath, lpcsVersion, dwSize );
+	return false;
 }

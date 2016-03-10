@@ -16,9 +16,6 @@
 template<class T>
 class SingletonStatic
 {
-private:
-	SingletonStatic(){}
-
 public:
 	static T* getInstance()
 	{

@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)\bin</OutDir>
+    <OutDir>$(SolutionDir)\bin\</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -89,6 +89,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="utils\AppUtils.h" />
     <ClInclude Include="utils\OSHelper.h" />
+    <ClInclude Include="utils\PathUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="basehelper.cpp" />
@@ -98,6 +99,7 @@
     </ClCompile>
     <ClCompile Include="utils\AppUtils.cpp" />
     <ClCompile Include="utils\OSHelper.cpp" />
+    <ClCompile Include="utils\PathUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="basehelper.rc" />

@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "basehelper.h"
 #include "utils/OSHelper.h"
-#include "common/Singleton.h"
+#include "utils/PathUtils.h"
 
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
@@ -16,7 +16,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
 
-	SingletonStatic::getInstance();
+	LPCTSTR lpcWindir = CPathUtils::getInstance()->GetWinDir();
 
  	return 0;
 }
