@@ -30,6 +30,15 @@ public:
 	// get system temporary directory
 	bool GetTempDir( LPTSTR lpTmpDir, DWORD  nDestCnt = MAX_PATH, HANDLE hToken = NULL, LPCTSTR lpcsProductName = NULL );
 
+	// copy file and child folder
+	static bool CopyFolder( LPCTSTR lpszDir, LPCTSTR lpszTo );
+	// delete file and child folder
+	static bool DeleteFolder( LPCTSTR lpcsFolder );
+	// create child folder int every layer
+	static bool CreateFolder( LPCTSTR lpcsDirPath );
+
+
+
 protected:
 	bool Initialize( HINSTANCE hInst );
 

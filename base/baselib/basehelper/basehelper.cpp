@@ -3,9 +3,7 @@
 
 #include "stdafx.h"
 #include "basehelper.h"
-#include "utils/OSHelper.h"
-#include "utils/PathUtils.h"
-#include "utils/StringUtils.h"
+#include "utils/utils.h"
 
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
@@ -16,8 +14,9 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	char sResult[33] = "test";
-	std::wstring a = StringUtils::s2ws(sResult);
+	CFileVersionUtils* test = CFileVersionUtils::CreateCFileVersionUtils(_T("D:\\Program Files (x86)\\Youdao\\YoudaoNote\\RunYNote.exe"));
+	std::wstring wsComment = test->comments();
+	std::wstring wsVersion = test->file_version();
 
 
  	return 0;

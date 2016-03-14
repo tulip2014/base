@@ -17,6 +17,7 @@
 #include <crtdbg.h>
 #include <tchar.h>
 #include <ShlObj.h>
+#include <shellapi.h>
 
 #pragma comment(lib, "shlwapi.lib")
 
@@ -99,4 +100,54 @@ bool CPathUtils::GetTempDir( LPTSTR lpcsFilePath, DWORD  nDestCnt, HANDLE hToken
 		else return true;
 	}
 	return false;
+}
+
+
+//****************************************************************
+bool CPathUtils::CopyFolder( LPCTSTR lpszFrom, LPCTSTR lpszTo )
+{
+	SHFILEOPSTRUCT FileOp;  
+	ZeroMemory((void*)&FileOp,sizeof(SHFILEOPSTRUCT));  
+	FileOp.fFlags = FOF_SILENT | FOF_NOCONFIRMATION | FOF_NOERRORUI | FOF_NOCONFIRMMKDIR;  
+	FileOp.hNameMappings = NULL;  
+	FileOp.hwnd = NULL;  
+	FileOp.lpszProgressTitle = NULL;  
+	FileOp.pFrom = lpszFrom;  
+	FileOp.pTo = lpszTo;  
+	FileOp.wFunc = FO_COPY;  
+	int nError = SHFileOperation(&FileOp);
+	return ( nError == 0 ) ? true : false;  
+}
+
+
+//****************************************************************
+bool CPathUtils::DeleteFolder( LPCTSTR lpFolder )
+{
+	SHFILEOPSTRUCT FileOp;  
+	ZeroMemory((void*)&FileOp,sizeof(SHFILEOPSTRUCT));  
+	FileOp.fFlags = FOF_SILENT | FOF_NOCONFIRMATION | FOF_NOERRORUI | FOF_NOCONFIRMMKDIR;  
+	FileOp.hNameMappings = NULL;  
+	FileOp.hwnd = NULL;  
+	FileOp.lpszProgressTitle = NULL; 
+	_TCHAR tcsFolder[MAX_PATH] = { 0 };
+	StringCbPrintf( tcsFolder, MAX_PATH*sizeof(_TCHAR), _T("%s\0\0"), lpFolder );
+	FileOp.pFrom = tcsFolder;
+	FileOp.wFunc = FO_DELETE;  
+	int nError = SHFileOperation(&FileOp);
+	return ( nError == 0 ) ? true : false;  
+}
+
+
+//****************************************************************
+// create directory path
+bool CPathUtils::CreateFolder( LPCTSTR lpcsDirPath )
+{
+	if ( false == PathFileExists( lpcsDirPath ) )
+	{
+		if ( ERROR_SUCCESS != SHCreateDirectory( NULL, lpcsDirPath ) )
+		{
+			return false;
+		}
+	}
+	return true;
 }

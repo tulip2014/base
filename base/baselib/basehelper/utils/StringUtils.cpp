@@ -29,8 +29,7 @@ namespace StringUtils{
 
 		std::string mb;
 		mb.resize(charcount);
-		WideCharToMultiByte(CodePage, 0, wide.data(), wide_length,
-			&mb[0], charcount, NULL, NULL);
+		WideCharToMultiByte(CodePage, 0, wide.data(), wide_length, &mb[0], charcount, NULL, NULL);
 
 		return mb;
 	}

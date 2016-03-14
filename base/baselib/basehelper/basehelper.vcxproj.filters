@@ -57,6 +57,12 @@
     <ClInclude Include="utils\StringUtils.h">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="utils\FileVersionUtils.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\utils.h">
+      <Filter>utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -78,6 +84,9 @@
       <Filter>safe</Filter>
     </ClCompile>
     <ClCompile Include="utils\StringUtils.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\FileVersionUtils.cpp">
       <Filter>utils</Filter>
     </ClCompile>
   </ItemGroup>

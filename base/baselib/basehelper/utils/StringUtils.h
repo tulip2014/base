@@ -15,17 +15,16 @@
 
 #include <string>
 
-//using namespace std;
-
 
 namespace StringUtils {
 
-	std::string  ws2s(const std::wstring& s_src,UINT CodePage = CP_UTF8);
-	std::wstring s2ws( const std::string& s_src,UINT CodePage = CP_UTF8);
+	std::string  ws2s(const std::wstring& s_src, UINT CodePage = CP_UTF8);
+	std::wstring s2ws( const std::string& s_src, UINT CodePage = CP_UTF8);
 
 	std::wstring to_lower(const std::wstring& in);
 	std::string to_lower(const std::string& in);
 
 	std::wstring to_upper(const std::wstring& in);
 	std::string to_upper(const std::string& in);
+
 }
