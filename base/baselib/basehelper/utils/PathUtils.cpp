@@ -62,11 +62,22 @@ bool CPathUtils::HasInitialized()
 }
 
 
-LPCTSTR CPathUtils::GetWinDir()
+
+//************************************
+// Method:    GetWinDir
+// FullName:  CPathUtils::GetWinDir
+// Access:    public 
+// Returns:   bool
+// Qualifier:
+// Parameter: LPTSTR lpWindir
+// Parameter: DWORD dwBuffer
+// Purpose:   get environment variable, first from local user, second from system
+//************************************
+bool CPathUtils::GetWinDir(LPTSTR lpWindir, DWORD dwBuffer, LPCTSTR lpcVarname)
 {
 	// method 1, return directly from environment path
-	//return _tgetenv_s( _T("WINDIR") );
-	return NULL;
+	size_t dwSize = 0;
+	return 0 == _tgetenv_s( &dwSize, lpWindir, dwBuffer, lpcVarname );
 }
 
 
@@ -77,7 +88,7 @@ bool CPathUtils::GetTempDir( LPTSTR lpcsFilePath, DWORD  nDestCnt, HANDLE hToken
 	TCHAR tcsTempDir[MAX_PATH] = { 0 };
 	if ( S_OK == SHGetFolderPath( NULL, CSIDL_APPDATA, hToken, SHGFP_TYPE_CURRENT, tcsTempDir ) )
 	{
-		PathCombine( lpcsFilePath, tcsTempDir, lpcsProductName ? lpcsProductName : PRODUCT_NAME );
+		PathCombine( lpcsFilePath, tcsTempDir, lpcsProductName ? lpcsProductName : _T("TestApp") );
 		if ( false == PathFileExists( lpcsFilePath ) )
 		{
 			if ( CreateDirectory( lpcsFilePath, NULL ) )

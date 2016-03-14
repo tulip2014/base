@@ -19,6 +19,9 @@
     <Filter Include="common">
       <UniqueIdentifier>{c233baee-73be-4573-abde-ed3ba473a22c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="safe">
+      <UniqueIdentifier>{454aea28-e0c2-4fe5-8f6e-29392647a9b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -48,6 +51,12 @@
     <ClInclude Include="utils\PathUtils.h">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="safe\md5.h">
+      <Filter>safe</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\StringUtils.h">
+      <Filter>utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -63,6 +72,12 @@
       <Filter>utils</Filter>
     </ClCompile>
     <ClCompile Include="utils\PathUtils.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="safe\md5.cpp">
+      <Filter>safe</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\StringUtils.cpp">
       <Filter>utils</Filter>
     </ClCompile>
   </ItemGroup>

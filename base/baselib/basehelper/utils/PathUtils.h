@@ -26,7 +26,7 @@ public:
 	void UpdateUserFolder( LPCTSTR lpcsUser );
 
 	// get system window directory
-	LPCTSTR GetWinDir();
+	bool GetWinDir( LPTSTR lpWindir, DWORD dwBuffer, LPCTSTR lpcVarname = L"TEMP" );
 	// get system temporary directory
 	bool GetTempDir( LPTSTR lpTmpDir, DWORD  nDestCnt = MAX_PATH, HANDLE hToken = NULL, LPCTSTR lpcsProductName = NULL );
 
