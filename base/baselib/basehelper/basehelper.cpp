@@ -14,9 +14,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	CFileVersionUtils* test = CFileVersionUtils::CreateCFileVersionUtils(_T("D:\\Program Files (x86)\\Youdao\\YoudaoNote\\RunYNote.exe"));
-	std::wstring wsComment = test->comments();
-	std::wstring wsVersion = test->file_version();
+	RegUtils::DeleteRegValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\V9\\WinZipper\\General", L"test");
 
 
  	return 0;
