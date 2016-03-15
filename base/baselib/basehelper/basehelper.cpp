@@ -14,8 +14,12 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	RegUtils::DeleteRegValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\V9\\WinZipper\\General", L"test");
+	CNTService cntservive(true);
 
+	if (cntservive.WinMain(lpCmdLine) == S_OK)
+	{
+		cntservive.RunSvc();
+	}
 
  	return 0;
 }

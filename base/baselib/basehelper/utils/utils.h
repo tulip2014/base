@@ -7,3 +7,4 @@
 #include "FileUtils.h"
 #include "RegUtils.h"
 #include "CmdLineUtils.h"
+#include "SvcUtils.h"
