@@ -89,12 +89,14 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="utils\AppUtils.h" />
+    <ClInclude Include="utils\CmdLineUtils.h" />
     <ClInclude Include="utils\FileUtils.h" />
     <ClInclude Include="utils\FileVersionUtils.h" />
     <ClInclude Include="utils\OSHelper.h" />
     <ClInclude Include="utils\PathUtils.h" />
     <ClInclude Include="utils\RegUtils.h" />
     <ClInclude Include="utils\StringUtils.h" />
+    <ClInclude Include="utils\SvcUtils.h" />
     <ClInclude Include="utils\utils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +112,7 @@
     <ClCompile Include="utils\OSHelper.cpp" />
     <ClCompile Include="utils\PathUtils.cpp" />
     <ClCompile Include="utils\RegUtils.cpp" />
+    <ClCompile Include="utils\SvcUtils.cpp" />
     <ClCompile Include="utils\StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>

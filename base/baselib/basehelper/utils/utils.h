@@ -6,3 +6,4 @@
 #include "StringUtils.h"
 #include "FileUtils.h"
 #include "RegUtils.h"
+#include "CmdLineUtils.h"

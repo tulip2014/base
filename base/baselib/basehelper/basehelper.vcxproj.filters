@@ -69,6 +69,12 @@
     <ClInclude Include="utils\RegUtils.h">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="utils\SvcUtils.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\CmdLineUtils.h">
+      <Filter>utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -99,6 +105,9 @@
       <Filter>utils</Filter>
     </ClCompile>
     <ClCompile Include="utils\RegUtils.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\SvcUtils.cpp">
       <Filter>utils</Filter>
     </ClCompile>
   </ItemGroup>
