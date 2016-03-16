@@ -15,16 +15,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	CCmdLine cmd(lpCmdLine);
-	std::wstring wsPath = cmd[L"path"];
 
-	bool bAdmin = false;
-	if (cmd.HasParam(L"admin"))
-	{
-		bAdmin = true;
-	}
-
-	ProcUtils::CreateProcess(wsPath, L"", L"", bAdmin, false, true);
+	ProcUtils::GetProcCmdLine(3320);
 
  	return 0;
 }

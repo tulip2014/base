@@ -30,7 +30,7 @@ namespace ProcUtils{
 	bool CheckProcess(const std::wstring& sProcessName);
 
 	// 获取指定进程的命令行参数
-	LPTSTR GetCommandLine(HANDLE hProc);
+	//LPTSTR GetCommandLine(HANDLE hProc);
 
 	std::wstring GetProcCmdLine(const DWORD& dwPid);
 }
