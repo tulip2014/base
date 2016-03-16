@@ -5,6 +5,7 @@
 #include "basehelper.h"
 #include "utils/utils.h"
 #include "process/ProcessUtils.h"
+#include "safe/rc4.h"
 
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
@@ -16,7 +17,6 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
 
-	ProcUtils::GetProcCmdLine(3320);
 
  	return 0;
 }

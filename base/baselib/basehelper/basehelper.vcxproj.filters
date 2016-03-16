@@ -99,6 +99,9 @@
     <ClInclude Include="process\OSUtils.h">
       <Filter>process</Filter>
     </ClInclude>
+    <ClInclude Include="safe\rc4.h">
+      <Filter>safe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -145,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="process\OSUtils.cpp">
       <Filter>process</Filter>
+    </ClCompile>
+    <ClCompile Include="safe\rc4.cpp">
+      <Filter>safe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
