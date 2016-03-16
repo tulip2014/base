@@ -71,7 +71,7 @@ public:
 	BOOL InstallService();
 	BOOL UninstallService();
 	BOOL InstAndRunService();
-	BOOL RunSvc();
+	BOOL DispatchSvc();
 	BOOL KillService();
 	BOOL UninstAndKillService();
 	BOOL Initialize();

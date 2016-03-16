@@ -22,6 +22,12 @@
     <Filter Include="safe">
       <UniqueIdentifier>{454aea28-e0c2-4fe5-8f6e-29392647a9b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="process">
+      <UniqueIdentifier>{e942af3a-6cc8-4fed-a98f-b5e5fce3f912}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{f5f6a647-70ab-4e05-921b-4f2a41aa4f14}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -78,6 +84,12 @@
     <ClInclude Include="utils\SvcMsg.h">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="process\ThreadUtils.h">
+      <Filter>process</Filter>
+    </ClInclude>
+    <ClInclude Include="test\ThreadUtilsTest.h">
+      <Filter>test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -112,6 +124,9 @@
     </ClCompile>
     <ClCompile Include="utils\SvcUtils.cpp">
       <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="test\ThreadUtilsTest.cpp">
+      <Filter>test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

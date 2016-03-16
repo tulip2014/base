@@ -297,7 +297,7 @@ BOOL CNTService::InstallService()
 			}
 			::CloseServiceHandle(hSCM);
 
-			return RunSvc();
+			return DispatchSvc();
 		}
 		return bResult;
 	} 
@@ -929,7 +929,7 @@ void CNTService::LogEvent(WORD wType, DWORD dwID,
 //////////////////////////////////////////////////////////////////////////////////////////////
 // Service startup and registration
 
-BOOL CNTService::RunSvc()
+BOOL CNTService::DispatchSvc()
 {
 #ifdef _DEBUG
 	ServiceMain(0,NULL);

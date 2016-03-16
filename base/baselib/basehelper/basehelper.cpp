@@ -18,7 +18,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	if (cntservive.WinMain(lpCmdLine) == S_OK)
 	{
-		cntservive.RunSvc();
+		cntservive.DispatchSvc();
 	}
 
  	return 0;
