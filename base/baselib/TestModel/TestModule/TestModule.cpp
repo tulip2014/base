@@ -4,10 +4,10 @@
 #include "stdafx.h"
 #include "TestModule.h"
 #include "shlwapi.h"
-#include "TestDll.h"
+//#include "TestDll.h"
 
 #pragma comment(lib, "shlwapi.lib")
-#pragma comment(lib, "TestDlld.lib")
+//#pragma comment(lib, "TestDlld.lib")
 
 typedef int (* lpFunc)(int, int);
 void DynamicLoad() {
@@ -51,17 +51,6 @@ void GetStaticVariable() {
 }
 
 
-void StaticLoad() {
-	int a = 1;
-	int b = 2;
-	int c = fnTestDll(a, b);
-
-	TCHAR szResult[MAX_PATH] = {0};
-	_stprintf_s(szResult, MAX_PATH, _T("%d"), c);
-	MessageBox(NULL, szResult, _T("test"), MB_OK);
-}
-
-
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPTSTR    lpCmdLine,
@@ -73,8 +62,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	//DynamicLoad();
 
 	//GetStaticVariable();
-
-	StaticLoad();
+	Sleep(10000000);
+	//StaticLoad();
 	return 0;
 }
 

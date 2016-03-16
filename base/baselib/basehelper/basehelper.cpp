@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "basehelper.h"
 #include "utils/utils.h"
+#include "process/ProcessUtils.h"
 
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
@@ -14,12 +15,16 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	CNTService cntservive(true);
+	CCmdLine cmd(lpCmdLine);
+	std::wstring wsPath = cmd[L"path"];
 
-	if (cntservive.WinMain(lpCmdLine) == S_OK)
+	bool bAdmin = false;
+	if (cmd.HasParam(L"admin"))
 	{
-		cntservive.DispatchSvc();
+		bAdmin = true;
 	}
+
+	ProcUtils::CreateProcess(wsPath, L"", L"", bAdmin, false, true);
 
  	return 0;
 }

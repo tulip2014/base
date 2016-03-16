@@ -87,6 +87,8 @@
     <ClInclude Include="basehelper.h" />
     <ClInclude Include="common\Singleton.h" />
     <ClInclude Include="process\ExceptionLogUtils.h" />
+    <ClInclude Include="process\OSUtils.h" />
+    <ClInclude Include="process\ProcessUtils.h" />
     <ClInclude Include="process\ProgramLogUtils.h" />
     <ClInclude Include="process\ThreadUtils.h" />
     <ClInclude Include="Resource.h" />
@@ -98,7 +100,6 @@
     <ClInclude Include="utils\CmdLineUtils.h" />
     <ClInclude Include="utils\FileUtils.h" />
     <ClInclude Include="utils\FileVersionUtils.h" />
-    <ClInclude Include="utils\OSHelper.h" />
     <ClInclude Include="utils\PathUtils.h" />
     <ClInclude Include="utils\RegUtils.h" />
     <ClInclude Include="utils\StringUtils.h" />
@@ -109,6 +110,8 @@
   <ItemGroup>
     <ClCompile Include="basehelper.cpp" />
     <ClCompile Include="process\ExceptionLogUtils.cpp" />
+    <ClCompile Include="process\OSUtils.cpp" />
+    <ClCompile Include="process\ProcessUtils.cpp" />
     <ClCompile Include="process\ProgramLogUtils.cpp" />
     <ClCompile Include="safe\md5.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -119,7 +122,6 @@
     <ClCompile Include="utils\AppUtils.cpp" />
     <ClCompile Include="utils\FileUtils.cpp" />
     <ClCompile Include="utils\FileVersionUtils.cpp" />
-    <ClCompile Include="utils\OSHelper.cpp" />
     <ClCompile Include="utils\PathUtils.cpp" />
     <ClCompile Include="utils\RegUtils.cpp" />
     <ClCompile Include="utils\SvcUtils.cpp" />

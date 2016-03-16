@@ -45,9 +45,6 @@
     <ClInclude Include="basehelper.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="utils\OSHelper.h">
-      <Filter>utils</Filter>
-    </ClInclude>
     <ClInclude Include="utils\AppUtils.h">
       <Filter>utils</Filter>
     </ClInclude>
@@ -96,6 +93,12 @@
     <ClInclude Include="process\ProgramLogUtils.h">
       <Filter>process</Filter>
     </ClInclude>
+    <ClInclude Include="process\ProcessUtils.h">
+      <Filter>process</Filter>
+    </ClInclude>
+    <ClInclude Include="process\OSUtils.h">
+      <Filter>process</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -103,9 +106,6 @@
     </ClCompile>
     <ClCompile Include="basehelper.cpp">
       <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="utils\OSHelper.cpp">
-      <Filter>utils</Filter>
     </ClCompile>
     <ClCompile Include="utils\AppUtils.cpp">
       <Filter>utils</Filter>
@@ -138,6 +138,12 @@
       <Filter>process</Filter>
     </ClCompile>
     <ClCompile Include="process\ProgramLogUtils.cpp">
+      <Filter>process</Filter>
+    </ClCompile>
+    <ClCompile Include="process\ProcessUtils.cpp">
+      <Filter>process</Filter>
+    </ClCompile>
+    <ClCompile Include="process\OSUtils.cpp">
       <Filter>process</Filter>
     </ClCompile>
   </ItemGroup>
