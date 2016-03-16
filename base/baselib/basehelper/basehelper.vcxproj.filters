@@ -90,6 +90,9 @@
     <ClInclude Include="test\ThreadUtilsTest.h">
       <Filter>test</Filter>
     </ClInclude>
+    <ClInclude Include="process\ExceptionLogUtils.h">
+      <Filter>process</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -127,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="test\ThreadUtilsTest.cpp">
       <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="process\ExceptionLogUtils.cpp">
+      <Filter>process</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

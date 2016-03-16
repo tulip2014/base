@@ -86,6 +86,7 @@
   <ItemGroup>
     <ClInclude Include="basehelper.h" />
     <ClInclude Include="common\Singleton.h" />
+    <ClInclude Include="process\ExceptionLogUtils.h" />
     <ClInclude Include="process\ThreadUtils.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="safe\md5.h" />
@@ -106,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="basehelper.cpp" />
+    <ClCompile Include="process\ExceptionLogUtils.cpp" />
     <ClCompile Include="safe\md5.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
