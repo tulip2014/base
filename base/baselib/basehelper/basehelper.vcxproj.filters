@@ -93,6 +93,9 @@
     <ClInclude Include="process\ExceptionLogUtils.h">
       <Filter>process</Filter>
     </ClInclude>
+    <ClInclude Include="process\ProgramLogUtils.h">
+      <Filter>process</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -132,6 +135,9 @@
       <Filter>test</Filter>
     </ClCompile>
     <ClCompile Include="process\ExceptionLogUtils.cpp">
+      <Filter>process</Filter>
+    </ClCompile>
+    <ClCompile Include="process\ProgramLogUtils.cpp">
       <Filter>process</Filter>
     </ClCompile>
   </ItemGroup>
