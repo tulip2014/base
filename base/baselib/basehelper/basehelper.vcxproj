@@ -88,6 +88,7 @@
     <ClInclude Include="common\Singleton.h" />
     <ClInclude Include="process\ExceptionLogUtils.h" />
     <ClInclude Include="process\OSUtils.h" />
+    <ClInclude Include="process\PrivilegeUtils.h" />
     <ClInclude Include="process\ProcessUtils.h" />
     <ClInclude Include="process\ProgramLogUtils.h" />
     <ClInclude Include="process\ThreadUtils.h" />
@@ -112,6 +113,7 @@
     <ClCompile Include="basehelper.cpp" />
     <ClCompile Include="process\ExceptionLogUtils.cpp" />
     <ClCompile Include="process\OSUtils.cpp" />
+    <ClCompile Include="process\PrivilegeUtils.cpp" />
     <ClCompile Include="process\ProcessUtils.cpp" />
     <ClCompile Include="process\ProgramLogUtils.cpp" />
     <ClCompile Include="safe\md5.cpp" />

@@ -102,6 +102,9 @@
     <ClInclude Include="safe\rc4.h">
       <Filter>safe</Filter>
     </ClInclude>
+    <ClInclude Include="process\PrivilegeUtils.h">
+      <Filter>process</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -151,6 +154,9 @@
     </ClCompile>
     <ClCompile Include="safe\rc4.cpp">
       <Filter>safe</Filter>
+    </ClCompile>
+    <ClCompile Include="process\PrivilegeUtils.cpp">
+      <Filter>process</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
