@@ -101,6 +101,7 @@
     <ClInclude Include="process\ProgramLogUtils.h" />
     <ClInclude Include="process\ThreadUtils.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="safe\cryptopp\base64Utils.h" />
     <ClInclude Include="safe\cryptopp\md5Utils.h" />
     <ClInclude Include="safe\md5.h" />
     <ClInclude Include="safe\rc4.h" />
@@ -125,6 +126,7 @@
     <ClCompile Include="process\PrivilegeUtils.cpp" />
     <ClCompile Include="process\ProcessUtils.cpp" />
     <ClCompile Include="process\ProgramLogUtils.cpp" />
+    <ClCompile Include="safe\cryptopp\base64Utils.cpp" />
     <ClCompile Include="safe\cryptopp\md5Utils.cpp" />
     <ClCompile Include="safe\md5.cpp" />
     <ClCompile Include="safe\rc4.cpp" />

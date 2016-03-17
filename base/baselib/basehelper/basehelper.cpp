@@ -6,6 +6,7 @@
 #include "utils/utils.h"
 #include "process/ProcessUtils.h"
 #include "safe/cryptopp/md5Utils.h"
+#include "safe/cryptopp/base64Utils.h"
 
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
@@ -16,7 +17,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	std::wstring a = safe::crypt::GetMD5W(L"asdf");
+	std::wstring a = safe::crypt::Base64EncodeW(L"asdf");
 
  	return 0;
 }

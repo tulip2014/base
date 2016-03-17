@@ -111,6 +111,9 @@
     <ClInclude Include="safe\cryptopp\md5Utils.h">
       <Filter>safe\cryptopp</Filter>
     </ClInclude>
+    <ClInclude Include="safe\cryptopp\base64Utils.h">
+      <Filter>safe\cryptopp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -165,6 +168,9 @@
       <Filter>process</Filter>
     </ClCompile>
     <ClCompile Include="safe\cryptopp\md5Utils.cpp">
+      <Filter>safe\cryptopp</Filter>
+    </ClCompile>
+    <ClCompile Include="safe\cryptopp\base64Utils.cpp">
       <Filter>safe\cryptopp</Filter>
     </ClCompile>
   </ItemGroup>
