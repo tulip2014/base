@@ -43,10 +43,14 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\bin\</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
+    <IncludePath>$(SolutionDir)baselib\thirdModule\cryptopp563;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)bin\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\bin\</OutDir>
+    <IncludePath>$(SolutionDir)baselib\thirdModule\cryptopp563;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)bin\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -56,6 +60,8 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -72,6 +78,8 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -93,6 +101,7 @@
     <ClInclude Include="process\ProgramLogUtils.h" />
     <ClInclude Include="process\ThreadUtils.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="safe\cryptopp\md5Utils.h" />
     <ClInclude Include="safe\md5.h" />
     <ClInclude Include="safe\rc4.h" />
     <ClInclude Include="stdafx.h" />
@@ -116,6 +125,7 @@
     <ClCompile Include="process\PrivilegeUtils.cpp" />
     <ClCompile Include="process\ProcessUtils.cpp" />
     <ClCompile Include="process\ProgramLogUtils.cpp" />
+    <ClCompile Include="safe\cryptopp\md5Utils.cpp" />
     <ClCompile Include="safe\md5.cpp" />
     <ClCompile Include="safe\rc4.cpp" />
     <ClCompile Include="stdafx.cpp">

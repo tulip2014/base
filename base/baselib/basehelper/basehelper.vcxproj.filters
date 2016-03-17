@@ -28,6 +28,9 @@
     <Filter Include="test">
       <UniqueIdentifier>{f5f6a647-70ab-4e05-921b-4f2a41aa4f14}</UniqueIdentifier>
     </Filter>
+    <Filter Include="safe\cryptopp">
+      <UniqueIdentifier>{c0eb957f-b25f-49b7-b63c-5bbffd3d6197}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -105,6 +108,9 @@
     <ClInclude Include="process\PrivilegeUtils.h">
       <Filter>process</Filter>
     </ClInclude>
+    <ClInclude Include="safe\cryptopp\md5Utils.h">
+      <Filter>safe\cryptopp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -157,6 +163,9 @@
     </ClCompile>
     <ClCompile Include="process\PrivilegeUtils.cpp">
       <Filter>process</Filter>
+    </ClCompile>
+    <ClCompile Include="safe\cryptopp\md5Utils.cpp">
+      <Filter>safe\cryptopp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
