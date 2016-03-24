@@ -115,3 +115,8 @@ private:
 	SERVICE_STATUS m_Status;
 
 };
+
+class SvcHelper
+{
+
+};
