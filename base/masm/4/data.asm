@@ -10,7 +10,8 @@ stack segment
 stack ends
 
 code segment
-	mov ax,stack
+	
+start:	mov ax,stack
 	mov ss,ax
 	mov sp,20h
 
@@ -24,4 +25,4 @@ code segment
 	int 21H
 
 code ends
-end
+end start
