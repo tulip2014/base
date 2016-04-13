@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "first", "first\first.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "second", "second\second.vcxproj", "{F2A7F478-AAE8-40AD-8B9F-E192562F1651}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "maptest", "maptest\maptest.vcxproj", "{53CB0F94-A77D-4EF2-BC14-B5F82AB6A148}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -31,6 +33,12 @@ Global
 		{F2A7F478-AAE8-40AD-8B9F-E192562F1651}.Release|Win32.ActiveCfg = Release|Win32
 		{F2A7F478-AAE8-40AD-8B9F-E192562F1651}.Release|Win32.Build.0 = Release|Win32
 		{F2A7F478-AAE8-40AD-8B9F-E192562F1651}.Release|Win32.Deploy.0 = Release|Win32
+		{53CB0F94-A77D-4EF2-BC14-B5F82AB6A148}.Debug|Win32.ActiveCfg = Debug|Win32
+		{53CB0F94-A77D-4EF2-BC14-B5F82AB6A148}.Debug|Win32.Build.0 = Debug|Win32
+		{53CB0F94-A77D-4EF2-BC14-B5F82AB6A148}.Debug|Win32.Deploy.0 = Debug|Win32
+		{53CB0F94-A77D-4EF2-BC14-B5F82AB6A148}.Release|Win32.ActiveCfg = Release|Win32
+		{53CB0F94-A77D-4EF2-BC14-B5F82AB6A148}.Release|Win32.Build.0 = Release|Win32
+		{53CB0F94-A77D-4EF2-BC14-B5F82AB6A148}.Release|Win32.Deploy.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
