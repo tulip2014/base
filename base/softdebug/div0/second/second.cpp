@@ -18,7 +18,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 {
 	int a = 1;
 	int b = 2;
-	int c = add(a, b);
+	int c = add(4, 5);
 	
 	return 0;
 }
