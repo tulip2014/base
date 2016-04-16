@@ -8,15 +8,8 @@
 TCHAR szName[] = TEXT("Global\\MyFileMappingObject");    //指向同一块共享内存的名字
 
 
-int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
-                     _In_opt_ HINSTANCE hPrevInstance,
-                     _In_ LPTSTR    lpCmdLine,
-                     _In_ int       nCmdShow)
+int main()
 {
-	UNREFERENCED_PARAMETER(hPrevInstance);
-	UNREFERENCED_PARAMETER(lpCmdLine);
-
- 	// TODO: 在此放置代码。
 	HANDLE hMapFile;
 	LPCTSTR pBuf;
 
@@ -53,9 +46,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	//以下代码，A不停地读共享内存pBuf
 	while(1)
 	{
-		//cout<<pBuf<<endl;
-		//cout<<"A process: hit keyboard to receive from B process"<<endl;
-		//getchar();
+		
+		std::cin>>
 	}
 
 	UnmapViewOfFile(pBuf);

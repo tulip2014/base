@@ -7,15 +7,8 @@
 #define BUF_SIZE 256
 TCHAR szName[] = TEXT("Global\\MyFileMappingObject");    //指向同一块共享内存的名字
 
-int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
-                     _In_opt_ HINSTANCE hPrevInstance,
-                     _In_ LPTSTR    lpCmdLine,
-                     _In_ int       nCmdShow)
+int main()
 {
-	UNREFERENCED_PARAMETER(hPrevInstance);
-	UNREFERENCED_PARAMETER(lpCmdLine);
-
- 	// TODO: 在此放置代码。
 	HANDLE hMapFile;
 	LPCTSTR pBuf;
 
@@ -29,7 +22,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	if (hMapFile == NULL)
 	{
-		OutputDebugString(TEXT("Could not create file mapping object.\n"));
+		//OutputDebugString(TEXT("Could not create file mapping object.\n"));
 		return 1;
 	}
 
