@@ -72,7 +72,7 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
 	// Flush the pipe to allow the client to read the pipe's contents 
 	// before disconnecting. Then disconnect the pipe, and close the 
 	// handle to this pipe instance. 
-
+	Sleep(2000);
 	FlushFileBuffers(hPipe); 
 	DisconnectNamedPipe(hPipe); 
 	CloseHandle(hPipe); 
@@ -125,7 +125,7 @@ int MultiPipe()
 			PIPE_TYPE_MESSAGE |       // message type pipe 
 			PIPE_READMODE_MESSAGE |   // message-read mode 
 			PIPE_WAIT,                // blocking mode 
-			PIPE_UNLIMITED_INSTANCES, // max. instances  
+			2,//PIPE_UNLIMITED_INSTANCES, // max. instances  
 			BUFSIZE,                  // output buffer size 
 			BUFSIZE,                  // input buffer size 
 			0,                        // client time-out 
@@ -134,7 +134,16 @@ int MultiPipe()
 		if (hPipe == INVALID_HANDLE_VALUE) 
 		{
 			_tprintf(TEXT("CreateNamedPipe failed, GLE=%d.\n"), GetLastError()); 
-			return -1;
+			if (GetLastError() == ERROR_PIPE_BUSY)
+			{
+				cout<<"busy"<<endl;
+				WaitNamedPipe(lpszPipename, 500000000);
+				continue;
+			}
+			else
+			{
+				return -1;
+			}
 		}
 
 		// Wait for the client to connect; if it succeeds, 

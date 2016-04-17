@@ -117,9 +117,10 @@ void Client()
 
 void Connect(int iNum)
 {
-	BOOL bExist = WaitNamedPipe(PIPENAME, 3);
+	BOOL bExist = WaitNamedPipe(PIPENAME, 5000000);
 	if (!bExist)
 	{
+		std::cout<<"fail1: "<<GetLastError()<<std::endl;
 		return ;
 	}
 
@@ -127,6 +128,7 @@ void Connect(int iNum)
 
 	if (NULL == hNamePipe)
 	{
+		std::cout<<"fail2"<<std::endl;
 		return ;
 	}
 
