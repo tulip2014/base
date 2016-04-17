@@ -34,5 +34,11 @@ int SendPacketData(struct CMyPipe *a1, struct CPacket *a2, struct CPacket *a3);
 int SendPipePacket( CMyPipe *a1, CPacket *a2);
 DWORD CreatePipeServerThread();
 int SendBroadcastPacket(unsigned __int32 a1, CPacket *a2, CPacket *a3, unsigned __int32 a4, int *a5);
+DWORD WINAPI PipeClientThread(LPVOID lpThreadParameter);
 int TreatSendPacketData(CPacket *a1, unsigned __int32 a2);
-DWORD WINAPI PipeServerThread(LPVOID lpThreadParameter) ;
+DWORD WINAPI PipeServerThread(LPVOID lpThreadParameter);
+int WaitClientLogIn(struct tagTHREADINFO *a1);
+int ReceivePipePacket(struct CMyPipe *a1, struct CPacket *a2, int a3);
+int ClientIDToPipe(unsigned __int32 *a1, struct CMyPipe **a2, unsigned __int32 *a3);
+int ConnectToPipeServer(struct tagTHREADINFO *a1);
+

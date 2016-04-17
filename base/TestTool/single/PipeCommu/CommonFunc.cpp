@@ -319,7 +319,7 @@ void* Temp_realloc(void *Memory, size_t NewSize)
 	return realloc(Memory, NewSize);
 }
 
-
+//接受客户端来的数据，然后发送出去
 int Temp_SendCommand(unsigned __int32 a1, char a2, unsigned __int32 a3, char a4, char a5, struct tagPCL_BUFFER *a6, struct tagPCL_BUFFER *a7)
 {
 	char v8; // [sp+Ch] [bp-2148h]@1
@@ -441,4 +441,137 @@ int FreeSecurityAttributes(struct _SECURITY_ATTRIBUTES *a1)
 		a1->lpSecurityDescriptor = 0;
 	}
 	return 1;
+}
+
+int DelThreadInfo(struct tagTHREADINFO *a1)
+{
+	return TryDelThreadInfo(a1);
+}
+
+int TryDelThreadInfo(struct tagTHREADINFO *a1)
+{
+	char v2; // [sp+Ch] [bp-108h]@1
+	int v3; // [sp+E8h] [bp-2Ch]@2
+	void *Dst; // [sp+F4h] [bp-20h]@1
+
+	Dst = (void *)FindThreadInfo(*(DWORD *)a1);
+	if ( Dst )
+	{
+		ClearThreadInfo((struct tagTHREADINFO *)Dst, 0, 0);
+		v3 = *(DWORD *)Dst & 0xFFFF;
+		if ( v3 != 1 && v3 != 2 )
+			memmove(Dst, (char *)Dst + 128, (dword_294-- << 7) + byte_290 - (_DWORD)((char *)Dst + 128));
+	}
+	return 0;
+}
+
+int FindThreadInfo(unsigned __int32 a1)
+{
+	int result; // eax@5
+	int v2; // [sp+Ch] [bp-DCh]@1
+	unsigned int i; // [sp+D4h] [bp-14h]@4
+	int v4; // [sp+E0h] [bp-8h]@1
+
+	memset(&v2, 0xCCu, 0xDCu);
+	v4 = (unsigned __int16)a1;
+	v2 = (unsigned __int16)a1;
+	if ( (WORD)a1 )
+	{
+		if ( v2 == 1 )
+		{
+			result = byte_290;
+		}
+		else if ( v2 == 2 )
+		{
+			result = byte_290 + 128;
+		}
+		else
+		{
+			for ( i = 2; i < dword_294; ++i )
+			{
+				if ( *(_DWORD *)(byte_290 + (i << 7)) == a1
+					|| !(a1 & 0xFFFF0000) && (*(_DWORD *)(byte_290 + (i << 7)) & 0xFFFF) == (unsigned __int16)a1 )
+					return (i << 7) + byte_290;
+			}
+			result = 0;
+		}
+	}
+	else
+	{
+		result = 0;
+	}
+	return result;
+}
+
+int SendLoginPacket(struct CMyPipe *a1, unsigned __int32 a2, struct tagTHREADINFO *a3)
+{
+	int result; // eax@2
+	unsigned __int8 *v4; // eax@8
+	char v5; // [sp+Ch] [bp-2148h]@1
+	int v6; // [sp+10h] [bp-2144h]@2
+	int v7; // [sp+1Ch] [bp-2138h]@4
+	int v8; // [sp+28h] [bp-212Ch]@8
+	int v9; // [sp+F4h] [bp-2060h]@6
+	unsigned __int8 *v10; // [sp+100h] [bp-2054h]@5
+	int v11; // [sp+10Ch] [bp-2048h]@1
+	char v12; // [sp+118h] [bp-203Ch]@1
+	char v13; // [sp+1130h] [bp-1024h]@1
+	unsigned int v14; // [sp+2144h] [bp-10h]@1
+	int v15; // [sp+2150h] [bp-4h]@1
+	int savedregs; // [sp+2154h] [bp+0h]@1
+
+	memset(&v5, 0xCCu, 0x213Cu);
+	v14 = (unsigned int)&savedregs ^ __security_cookie;
+	CPacket::__autoclassinit((CPacket *)&v13, 1u);
+	CPacket::CPacket(&v13);
+	v15 = 0;
+	CPacket::AddData<tagTHREADINFO>(&dword_210);
+	CPacket::__autoclassinit((CPacket *)&v12, 1u);
+	CPacket::CPacket(&v12);
+	LOBYTE(v15) = 1;
+	v11 = SendPacketData(a1, a2, 0x80000000, 0, (struct CPacket *)&v13, (struct CPacket *)&v12, 0);
+	if ( v11 )
+	{
+		v6 = v11;
+		LOBYTE(v15) = 0;
+		CPacket::~CPacket((CPacket *)&v12);
+		v15 = -1;
+		CPacket::~CPacket((CPacket *)&v13);
+		result = v6;
+	}
+	else if ( CPacket::GetLength((CPacket *)&v12) == 176 )
+	{
+		CPacket::GetData<tagTHREADINFO *>(&v10);
+		if ( v10 )
+		{
+			CPacket::GetData<unsigned long>(&v9);
+			if ( v9 )
+			{
+				v10 = CPacket::GetCurrentPos((CPacket *)&v12);
+				CPacket::SetGetPos((CPacket *)&v12, v9, 2u);
+			}
+		}
+		v4 = v10;
+		*(_DWORD *)a3 = *(_DWORD *)v10;
+		*((_DWORD *)a3 + 1) = *((_DWORD *)v4 + 1);
+		*((_DWORD *)a3 + 2) = *((_DWORD *)v4 + 2);
+		*((_DWORD *)a3 + 3) = *((_DWORD *)v4 + 3);
+		_memmove((char *)a3 + 28, v10 + 28, 0x64u);
+		v8 = 0;
+		LOBYTE(v15) = 0;
+		CPacket::~CPacket((CPacket *)&v12);
+		v15 = -1;
+		CPacket::~CPacket((CPacket *)&v13);
+		result = v8;
+	}
+	else
+	{
+		v7 = -536863740;
+		LOBYTE(v15) = 0;
+		CPacket::~CPacket((CPacket *)&v12);
+		v15 = -1;
+		CPacket::~CPacket((CPacket *)&v13);
+		result = v7;
+	}
+	return result;
 }

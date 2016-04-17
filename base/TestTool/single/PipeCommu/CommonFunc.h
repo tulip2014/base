@@ -22,3 +22,7 @@ int Temp_SendCommand(unsigned __int32 a1, char a2, unsigned __int32 a3, char a4,
 unsigned __int64 GetCycleCount();
 int CreateSecurityAttributes(_SECURITY_ATTRIBUTES *a1, unsigned __int32 a2);
 int FreeSecurityAttributes(struct _SECURITY_ATTRIBUTES *a1);
+int DelThreadInfo(struct tagTHREADINFO *a1);
+int TryDelThreadInfo(struct tagTHREADINFO *a1);
+int FindThreadInfo(unsigned __int32 a1);
+int SendLoginPacket(struct CMyPipe *a1, unsigned __int32 a2, struct tagTHREADINFO *a3);

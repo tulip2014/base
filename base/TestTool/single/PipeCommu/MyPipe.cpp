@@ -55,8 +55,8 @@ int CMyPipe::ClearLocaleValue()
 
 int CMyPipe::ClearOverlapped()
 {
-	if ( hdArg36 )
-		CloseHandle(hdArg36);
+	if ( overlap.hEvent )
+		CloseHandle(overlap.hEvent);
 	memset(dwArg128, 0, 0x14u);
 	return 1;
 }
@@ -178,6 +178,9 @@ int CMyPipe::ResetOverlapped()
 	return 1;
 }
 
+
+
+// 等待客户端连接，然后创建新的管道
 int CMyPipe::accept(CMyPipe *hFile)
 {
 	int result; // eax@2
@@ -194,11 +197,11 @@ int CMyPipe::accept(CMyPipe *hFile)
 	v11 = this;
 	if ( CMyPipe::StaticFlag == 2 )
 	{
-		if ( hFile != (CMyPipe *)-1 && hdArg36 && dwArg30 & 1 )
+		if ( hFile != INVALID_HANDLE_VALUE && overlap.hEvent && dwArg30 & 1 )
 		{
 			v10 = 0;
 			dwArg30 = dwArg30 & 0xFFFFFFFD | 2;
-			if ( !ConnectNamedPipe(*((HANDLE *)v11 + 31), (LPOVERLAPPED)((char *)v11 + 128)) )
+			if ( !ConnectNamedPipe(dwArg31, &overlap ))
 			{
 				v9 = GetLastError();
 				if ( v9 == 535 )
@@ -208,8 +211,8 @@ int CMyPipe::accept(CMyPipe *hFile)
 				else if ( v9 == 997 )
 				{
 					Handles = CMyPipe::StaticExitEvent;
-					v7 = hdArg36;
-					v8 = hdArg36;
+					v7 = overlap.hEvent;
+					v8 = overlap.hEvent;
 					v3 = WaitForMultipleObjects(3u, &Handles, 0, dwArg1);
 					if ( v3 > 258 )
 					{
@@ -239,6 +242,7 @@ int CMyPipe::accept(CMyPipe *hFile)
 					v10 = -536863738;
 				}
 			}
+
 			*((DWORD *)v11 + 30) &= 0xFFFFFFFD;
 			if ( v10 )
 			{
@@ -246,23 +250,23 @@ int CMyPipe::accept(CMyPipe *hFile)
 			}
 			else
 			{
-// 				*((DWORD *)hFile + 31) = CMyPipe::CreateNewPipe(v11, (LPCWSTR)v11 + 10, 0);
-// 				if ( *((DWORD *)hFile + 31) != -1 && CMyPipe::InitialLocaleValue(hFile) )
-// 				{
-// 					v4 = *((DWORD *)hFile + 31);
-// 					*((DWORD *)hFile + 31) = *((DWORD *)v11 + 31);
-// 					*((DWORD *)v11 + 31) = v4;
-// 					*((DWORD *)hFile + 30) = *((DWORD *)hFile + 30) & 0xFFFFFFFE | 1;
-// 					*((DWORD *)hFile + 30) = *((DWORD *)hFile + 30) & 0xFFFFFFFB | 4;
-// 					*((DWORD *)v11 + 30) = *((DWORD *)v11 + 30) & 0xFFFFFFFE | 1;
-// 					*((DWORD *)v11 + 30) &= 0xFFFFFFFD;
-// 					result = 0;
-// 				}
-// 				else
-// 				{
-// 					DisconnectNamedPipe(*((HANDLE *)v11 + 31));
-// 					result = -536863739;
-// 				}
+				hFile->dwArg31 = CreateNewPipe((LPCWSTR)v11 + 10, 0);
+				if ( hFile->dwArg31 != INVALID_HANDLE_VALUE && hFile->InitialLocaleValue() )
+				{
+					v4 = *((DWORD *)hFile + 31);
+					*((DWORD *)hFile + 31) = *((DWORD *)v11 + 31);
+					*((DWORD *)v11 + 31) = v4;
+					*((DWORD *)hFile + 30) = *((DWORD *)hFile + 30) & 0xFFFFFFFE | 1;
+					*((DWORD *)hFile + 30) = *((DWORD *)hFile + 30) & 0xFFFFFFFB | 4;
+					*((DWORD *)v11 + 30) = *((DWORD *)v11 + 30) & 0xFFFFFFFE | 1;
+					*((DWORD *)v11 + 30) &= 0xFFFFFFFD;
+					result = 0;
+				}
+				else
+				{
+					DisconnectNamedPipe(*((HANDLE *)v11 + 31));
+					result = -536863739;
+				}
 			}
 		}
 		else
@@ -319,7 +323,7 @@ int CMyPipe::connect(const wchar_t *Str)
 			SecurityAttributes.nLength = 0;
 			SecurityAttributes.lpSecurityDescriptor = 0;
 			SecurityAttributes.bInheritHandle = 0;
-			if ( 1 /*CreateSecurityAttributes(&SecurityAttributes, 2u)*/ )
+			if ( CreateSecurityAttributes(&SecurityAttributes, 2u) )
 			{
 				v5 = time(0);
 				while ( 1 )
@@ -330,7 +334,7 @@ int CMyPipe::connect(const wchar_t *Str)
 					WaitNamedPipeW(Str, *((DWORD *)v7 + 2));
 					Sleep(0x64u);
 				}
-				//FreeSecurityAttributes(&SecurityAttributes);
+				FreeSecurityAttributes(&SecurityAttributes);
 				if ( *((DWORD *)v7 + 31) == -1 )
 				{
 					result = -536863738;
@@ -403,6 +407,7 @@ int CMyPipe::initial(unsigned __int32 a1, unsigned __int32 a2)
 	return result;
 }
 
+//创建管道
 int CMyPipe::listen(wchar_t *Str, int a3)
 {
 	int result; // eax@2
@@ -436,6 +441,7 @@ int CMyPipe::listen(wchar_t *Str, int a3)
 			break;
 		}
 	}
+
 	if ( dwArg31 == (HANDLE)-1 )
 	{
 		result = -536863739;
@@ -455,6 +461,8 @@ int CMyPipe::listen(wchar_t *Str, int a3)
 	return result;
 }
 
+
+//从管道读取字节信息
 int CMyPipe::receive(void *lpBuffer, int *a3, int a4)
 {
 	int result; // eax@4

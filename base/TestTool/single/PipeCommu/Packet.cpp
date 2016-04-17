@@ -186,12 +186,12 @@ int CPacket::TreatSendPacketData(unsigned __int32 a2, unsigned __int32 a3, unsig
 
 	memset(&v6, 0xCCu, 0xFCu);
 	v11 = this;
-	if ( *((_DWORD *)&g_globalData + 49) )
+	if ( *((DWORD *)&g_globalData + 49) )
 	{
-		if ( (_WORD)a2
+		if ( (WORD)a2
 			&& ((a2 & 0xFFFF0000) == -65536
 			|| (unsigned __int16)a2 == 0xFFFF
-			|| (unsigned __int16)a2 != (*((_DWORD *)&g_globalData + 8) & 0xFFFF)) )
+			|| (unsigned __int16)a2 != (*((DWORD *)&g_globalData + 8) & 0xFFFF)) )
 		{
 			Dst = CPacket::GetData(v11);
 			if ( Dst )
@@ -213,7 +213,7 @@ int CPacket::TreatSendPacketData(unsigned __int32 a2, unsigned __int32 a3, unsig
 					Size = ((v9 + 15) & 0xFFFFFFF0) - v9;
 					if ( ((v9 + 15) & 0xFFFFFFF0) != v9 )
 						memset(&v8[v9 + 4], 0, Size);
-					CPacket::Encrypt(v11);
+					v11->Encrypt();
 					*((_WORD *)Dst + 7) = 0;
 					*((_WORD *)Dst + 6) = 0;
 					*((_WORD *)Dst + 7) = CRC16(v8, *(_DWORD *)v8 + 4);
@@ -257,4 +257,26 @@ int CPacket::TreatSendPacketData(unsigned __int32 a2)
 	*((_WORD *)v5 + 6) = 0;
 	*((_WORD *)v5 + 6) = CRC16(v5, 0x2Cu);
 	return 0;
+}
+
+void CPacket::Encrypt()
+{
+	char v1; // [sp+Ch] [bp-E4h]@1
+	unsigned __int8 *v2; // [sp+D0h] [bp-20h]@1
+	unsigned __int8 *v3; // [sp+DCh] [bp-14h]@1
+	CPacket *v4; // [sp+E8h] [bp-8h]@1
+
+	memset(&v1, 0xCCu, 0xE4u);
+	v4 = this;
+	v3 = CPacket::GetData(this);
+	v2 = CPacket::GetData(v4) + 44;
+	if ( *((_DWORD *)v3 + 4) == 1 )
+	{
+		*((_DWORD *)v3 + 5) = CPacket::GetRandomDword(v4);
+		CPacket::RandomTreatByDWORD(v4, v2 + 4, *(_DWORD *)v2, *((_DWORD *)v3 + 5));
+	}
+	else if ( *((_DWORD *)v3 + 4) == 2 )
+	{
+		CPacket::DesTreat(v4, v2 + 4, *(_DWORD *)v2, 1);
+	}
 }

@@ -48,8 +48,8 @@ private:
 	DWORD dwArg20[25];
 	DWORD dwArg30;
 	HANDLE dwArg31;    //创建的新管道
-	DWORD dwArg128[4];
-	HANDLE hdArg36;   //enent handle
+	OVERLAPPED overlap;
+	//HANDLE hdArg36;   //enent handle
 	HANDLE hdArg37;   //event handle
 	LPCRITICAL_SECTION* lpc_section38;  //临界区指针
 };
