@@ -20,9 +20,9 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
 	// client connections.
 { 
 	char pchRequest[MAX_PATH] = {0};
-	char pchReply[MAX_PATH]   = {0};
+	char pchReply[MAX_PATH]   = "123qweads";
 
-	DWORD cbBytesRead = 0, cbReplyBytes = 0, cbWritten = 0; 
+	DWORD cbBytesRead = MAX_PATH, cbReplyBytes = MAX_PATH, cbWritten = 0; 
 	BOOL fSuccess = FALSE;
 	HANDLE hPipe  = NULL;
 
@@ -43,7 +43,7 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
 	hPipe = (HANDLE) lpvParam; 
 
 	// Loop until done reading
-	while (1) 
+	//while (1) 
 	{ 
 		// Read client requests from the pipe. This simplistic code only allows messages
 		// up to BUFSIZE characters in length.
@@ -64,10 +64,17 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
 			{
 				_tprintf(TEXT("InstanceThread ReadFile failed, GLE=%d.\n"), GetLastError()); 
 			}
-			break;
+			//break;
 		}
 		cout<<"value:"<<pchRequest<<endl;
 	}
+
+	fSuccess = WriteFile( 
+		hPipe,        // handle to pipe 
+		pchReply,     // buffer to write from 
+		cbReplyBytes, // number of bytes to write 
+		&cbWritten,   // number of bytes written 
+		NULL);        // not overlapped I/O 
 
 	// Flush the pipe to allow the client to read the pipe's contents 
 	// before disconnecting. Then disconnect the pipe, and close the 
