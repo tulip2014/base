@@ -11,6 +11,7 @@ public :
 	int CheckReceivePacketData();
 
 	int TreatSendPacketData(unsigned __int32 a2, unsigned __int32 a3, unsigned __int32 a4, unsigned __int32 a5);
+	int TreatSendPacketData(unsigned __int32 a2);
 private :
 	DWORD dwArg0;
 	DWORD dwArg1;

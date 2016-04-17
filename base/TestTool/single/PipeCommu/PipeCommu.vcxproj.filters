@@ -39,6 +39,18 @@
     <ClInclude Include="Packet.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="PipeCommuLib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonFunc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CalcCRC32.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PipeComm.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -54,6 +66,18 @@
       <Filter>头文件</Filter>
     </ClCompile>
     <ClCompile Include="Packet.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeCommuLib.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CommonFunc.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CalcCRC32.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeComm.cpp">
       <Filter>头文件</Filter>
     </ClCompile>
   </ItemGroup>
