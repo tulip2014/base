@@ -122,7 +122,7 @@ int MultiPipe()
 	// connects, a thread is created to handle communications 
 	// with that client, and this loop is free to wait for the
 	// next client connect request. It is an infinite loop.
-
+	
 	for (;;) 
 	{ 
 		_tprintf( TEXT("\nPipe Server: Main thread awaiting client connection on %s\n"), lpszPipename);
@@ -158,7 +158,7 @@ int MultiPipe()
 		// returns zero, GetLastError returns ERROR_PIPE_CONNECTED. 
 
 		fConnected = ConnectNamedPipe(hPipe, NULL) ? TRUE : (GetLastError() == ERROR_PIPE_CONNECTED); 
-
+		ERROR_PIPE_BUSY
 		if (fConnected) 
 		{ 
 			printf("Client connected, creating a processing thread.\n"); 

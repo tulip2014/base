@@ -122,18 +122,18 @@ void Connect(int iNum)
 	HANDLE hNamePipe = NULL;
 	while (1)
 	{
-		BOOL bExist = WaitNamedPipe(PIPENAME, 5000000);
+		BOOL bExist = WaitNamedPipe(PIPENAME, NMPWAIT_WAIT_FOREVER);
 		if (!bExist)
 		{
 			std::cout<<"fail1: "<<GetLastError()<<std::endl;
-			continue;
+			//continue;
 		}
 
 		hNamePipe = CreateFile(PIPENAME, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
 
-		if (NULL == hNamePipe)
+		if (NULL == hNamePipe || hNamePipe == INVALID_HANDLE_VALUE)
 		{
-			std::cout<<"fail2"<<std::endl;
+			std::cout<<"fail2:"<<GetLastError()<<std::endl;
 			continue ;
 		}
 
@@ -160,7 +160,7 @@ void Connect(int iNum)
 	DWORD dwRead = 0;
 	ReadFile(hNamePipe, cReceive, MAX_PATH, &dwRead, &overlap);
 
-	WaitForSingleObject(overlap.hEvent, 5000000);
+	//WaitForSingleObject(overlap.hEvent, 5000000);
 	cout<<"receive:"<<cReceive<<endl;
 
 // 	Sleep(2000);
