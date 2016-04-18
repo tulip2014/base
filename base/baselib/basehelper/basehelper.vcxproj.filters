@@ -31,6 +31,9 @@
     <Filter Include="safe\cryptopp">
       <UniqueIdentifier>{c0eb957f-b25f-49b7-b63c-5bbffd3d6197}</UniqueIdentifier>
     </Filter>
+    <Filter Include="process\PipeCommu">
+      <UniqueIdentifier>{fd38269e-1f67-4e88-8375-d3fe25e7d93e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -114,6 +117,12 @@
     <ClInclude Include="safe\cryptopp\base64Utils.h">
       <Filter>safe\cryptopp</Filter>
     </ClInclude>
+    <ClInclude Include="process\PipeCommu\PipeUtils.h">
+      <Filter>process\PipeCommu</Filter>
+    </ClInclude>
+    <ClInclude Include="test\PipeCommuTest.h">
+      <Filter>test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -172,6 +181,12 @@
     </ClCompile>
     <ClCompile Include="safe\cryptopp\base64Utils.cpp">
       <Filter>safe\cryptopp</Filter>
+    </ClCompile>
+    <ClCompile Include="process\PipeCommu\PipeUtils.cpp">
+      <Filter>process\PipeCommu</Filter>
+    </ClCompile>
+    <ClCompile Include="test\PipeCommuTest.cpp">
+      <Filter>test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

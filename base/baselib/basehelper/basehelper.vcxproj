@@ -96,6 +96,7 @@
     <ClInclude Include="common\Singleton.h" />
     <ClInclude Include="process\ExceptionLogUtils.h" />
     <ClInclude Include="process\OSUtils.h" />
+    <ClInclude Include="process\PipeCommu\PipeUtils.h" />
     <ClInclude Include="process\PrivilegeUtils.h" />
     <ClInclude Include="process\ProcessUtils.h" />
     <ClInclude Include="process\ProgramLogUtils.h" />
@@ -107,6 +108,7 @@
     <ClInclude Include="safe\rc4.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="test\PipeCommuTest.h" />
     <ClInclude Include="test\ThreadUtilsTest.h" />
     <ClInclude Include="utils\AppUtils.h" />
     <ClInclude Include="utils\CmdLineUtils.h" />
@@ -123,6 +125,7 @@
     <ClCompile Include="basehelper.cpp" />
     <ClCompile Include="process\ExceptionLogUtils.cpp" />
     <ClCompile Include="process\OSUtils.cpp" />
+    <ClCompile Include="process\PipeCommu\PipeUtils.cpp" />
     <ClCompile Include="process\PrivilegeUtils.cpp" />
     <ClCompile Include="process\ProcessUtils.cpp" />
     <ClCompile Include="process\ProgramLogUtils.cpp" />
@@ -134,6 +137,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="test\PipeCommuTest.cpp" />
     <ClCompile Include="test\ThreadUtilsTest.cpp" />
     <ClCompile Include="utils\AppUtils.cpp" />
     <ClCompile Include="utils\FileUtils.cpp" />
