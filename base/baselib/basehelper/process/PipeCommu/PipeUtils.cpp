@@ -1,6 +1,6 @@
 
-#include "..\..\stdafx.h"
 #include "PipeUtils.h"
+#include <tchar.h>
 
 DWORD PipeUtils::ResetOverlapped()
 {
@@ -42,6 +42,7 @@ PipeUtils::PipeUtils()
 	m_dwReceiveBufferLength = MAX_PATH;
 	m_dwWaitTime = PIPEWAITTIME;
 	_tcscpy_s(m_szPipeName, MAX_PATH, PIPENAME);
+	memset(&m_Overlap, 0, sizeof(OVERLAPPED));
 	CreateOverlapped();
 }
 
@@ -103,7 +104,7 @@ HANDLE PipeUtils::CreateNewPipe(LPCWSTR lpcPipeName)
 	HANDLE hResult = NULL;
 	SECURITY_ATTRIBUTES SecurityAttributes = {0};
 
-	if ( CreateSecurityAttributes(&SecurityAttributes) )
+	if ( 0 == CreateSecurityAttributes(&SecurityAttributes) )
 	{
 		m_hInstance = CreateNamedPipe(
 			lpcPipeName,
@@ -131,11 +132,13 @@ DWORD PipeUtils::WaitforConnect()
 	if ( !bConnected )
 	{
 		DWORD dwError = GetLastError();
-		if ( dwError != ERROR_PIPE_CONNECTED )
+		if ( dwError != ERROR_IO_PENDING && ERROR_PIPE_CONNECTED != dwError )
 		{
-			dwResult = 1;
+			return 1;
 		}
 	}
+
+	WaitForSingleObject(m_Overlap.hEvent, INFINITE);
 
 	return dwResult;
 }

@@ -11,6 +11,7 @@
 *********************************************************************/
 
 #pragma once
+#include <windows.h>
 
 #define		PIPENAMESIZE	100
 #define		PIPENAME		L"\\\\.\\pipe\\pipeutils_{D5C192C6-FD51-4EC6-B8F3-F06F34EE4000}"

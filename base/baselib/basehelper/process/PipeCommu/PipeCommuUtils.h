@@ -14,25 +14,28 @@
 #pragma once
 
 #include "PipeUtils.h"
+#include <windows.h>
 
+#define		THREAD_STATUS_RUN		0
+#define		THREAD_STATUS_PAUSE		1
 #define		THREAD_STATUS_STOP		2
 
-typedef struct _PIPECOMMUINFO 
-{
-	DWORD dwStatus;
-	HANDLE hThreadHandle;
-}PIPECOMMUINFO;
+#define		PIPESERVERNAME			L"\\\\.\\pipe\\server_{2F39AD4F-25C8-42C7-A66E-06DEEBC0E0B1}"
+
 
 class PipeCommuUtils
 {
 private:
-	DWORD dwStatus;		//当前状态
-	HANDLE hInstance;   //pipe instance
+	DWORD m_dwStatus;	  //server当前状态
+	HANDLE m_hInstance;   //pipe instance
 
 public:
 	PipeCommuUtils();
 	~PipeCommuUtils();
+	DWORD GetStatus();
+	DWORD SetStatus(DWORD dwStatus);
 	DWORD StartPipeServer(LPCWSTR lpPipeName);
 	DWORD StopPipeServer();
 
+	DWORD StartClient(LPCWSTR lpPipeName);
 };

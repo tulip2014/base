@@ -4,11 +4,13 @@
 #include "stdafx.h"
 #include "PipeClient.h"
 #include <iostream>
+#include "..\..\..\baselib\basehelper\process\PipeCommu\PipeCommuUtils.h"
+
 
 using namespace std;
 
 #define		BUFSIZE			255
-#define		PIPENAME		_T("\\\\.\\pipe\\mynamedpipe")
+#define		PIPENAMETEMP		_T("\\\\.\\pipe\\mynamedpipe")
 
 void Client()
 {
@@ -122,7 +124,7 @@ void Connect(int iNum)
 	HANDLE hNamePipe = NULL;
 	while (1)
 	{
-		BOOL bExist = WaitNamedPipe(PIPENAME, NMPWAIT_WAIT_FOREVER);
+		BOOL bExist = WaitNamedPipe(PIPENAMETEMP, NMPWAIT_WAIT_FOREVER);
 		if (!bExist)
 		{
 			std::cout<<"fail1: "<<GetLastError()<<std::endl;
@@ -148,7 +150,7 @@ void Connect(int iNum)
 		char szWrite[MAX_PATH] = {0};
 		sprintf_s(szWrite, MAX_PATH, "threadid:%d, value:%d", dwThreadId, iNum);
 		DWORD dwHasWrite = 0;
-		bool bRet = WriteFile(hNamePipe, szWrite, strlen(szWrite) + 1, &dwHasWrite, NULL);
+		BOOL bRet = WriteFile(hNamePipe, szWrite, strlen(szWrite) + 1, &dwHasWrite, NULL);
 		std::cout<<"write value "<<i<<":, result:"<<bRet<<", "<<szWrite<<std::endl;
 	}
 	std::cout<<"write end"<<std::endl;
@@ -173,6 +175,17 @@ void Connect(int iNum)
 	CloseHandle(hNamePipe);
 }
 
+void test()
+{
+	PipeCommuUtils client;
+	client.StartClient(PIPESERVERNAME);
+}
+
+DWORD WINAPI ThreadFunc(LPVOID lpParam)
+{
+	test();
+	return 0;
+}
 
 int  _tmain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -185,10 +198,12 @@ int  _tmain(_In_ HINSTANCE hInstance,
  	// TODO: 在此放置代码。
 	DWORD dwThreadId = GetCurrentThreadId();
 	int i = 0;
-	while (++i < 50)
+	while (++i < 100)
 	{
-		Connect(i);
-		Sleep(1000);
+		CreateThread(NULL, 0, ThreadFunc, NULL, 0, NULL);
+		//test();
+		//Connect(i);
+		//Sleep(1000);
 	}
 	
 

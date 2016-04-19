@@ -5,6 +5,7 @@
 #include "PipeTest.h"
 #include <iostream>
 #include <Strsafe.h>
+#include "PipeCommuUtils.h"
 
 using namespace std;
 
@@ -151,6 +152,7 @@ int MultiPipe()
 			{
 				return -1;
 			}
+			Sleep(100);
 		}
 
 		// Wait for the client to connect; if it succeeds, 
@@ -255,6 +257,12 @@ void CreateTest()
 }
 
 
+void test()
+{
+	PipeCommuUtils* test = new PipeCommuUtils();
+	test->StartPipeServer(PIPESERVERNAME);
+}
+
 int  _tmain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPTSTR    lpCmdLine,
@@ -268,8 +276,11 @@ int  _tmain(_In_ HINSTANCE hInstance,
 	int iSize = sizeof(OVERLAPPED);
 	std::cout<<"start"<<std::endl;
 	//CreateTest();
-	MultiPipe();
+	//MultiPipe();
 
+	test();
+
+	Sleep(500000000);
 	system("pause");
 	return 0;
 }
