@@ -20,9 +20,9 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
 	// client connections.
 { 
 	char pchRequest[MAX_PATH] = {0};
-	char pchReply[MAX_PATH]   = {0};
+	char pchReply[MAX_PATH]   = "123qweads";
 
-	DWORD cbBytesRead = 0, cbReplyBytes = 0, cbWritten = 0; 
+	DWORD cbBytesRead = MAX_PATH, cbReplyBytes = MAX_PATH, cbWritten = 0; 
 	BOOL fSuccess = FALSE;
 	HANDLE hPipe  = NULL;
 
@@ -43,7 +43,7 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
 	hPipe = (HANDLE) lpvParam; 
 
 	// Loop until done reading
-	while (1) 
+	//while (1) 
 	{ 
 		// Read client requests from the pipe. This simplistic code only allows messages
 		// up to BUFSIZE characters in length.
@@ -64,10 +64,17 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
 			{
 				_tprintf(TEXT("InstanceThread ReadFile failed, GLE=%d.\n"), GetLastError()); 
 			}
-			break;
+			//break;
 		}
 		cout<<"value:"<<pchRequest<<endl;
 	}
+
+	fSuccess = WriteFile( 
+		hPipe,        // handle to pipe 
+		pchReply,     // buffer to write from 
+		cbReplyBytes, // number of bytes to write 
+		&cbWritten,   // number of bytes written 
+		NULL);        // not overlapped I/O 
 
 	// Flush the pipe to allow the client to read the pipe's contents 
 	// before disconnecting. Then disconnect the pipe, and close the 
@@ -115,7 +122,7 @@ int MultiPipe()
 	// connects, a thread is created to handle communications 
 	// with that client, and this loop is free to wait for the
 	// next client connect request. It is an infinite loop.
-
+	
 	for (;;) 
 	{ 
 		_tprintf( TEXT("\nPipe Server: Main thread awaiting client connection on %s\n"), lpszPipename);
@@ -151,7 +158,7 @@ int MultiPipe()
 		// returns zero, GetLastError returns ERROR_PIPE_CONNECTED. 
 
 		fConnected = ConnectNamedPipe(hPipe, NULL) ? TRUE : (GetLastError() == ERROR_PIPE_CONNECTED); 
-
+		ERROR_PIPE_BUSY
 		if (fConnected) 
 		{ 
 			printf("Client connected, creating a processing thread.\n"); 

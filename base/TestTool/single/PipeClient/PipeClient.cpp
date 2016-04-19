@@ -5,6 +5,8 @@
 #include "PipeClient.h"
 #include <iostream>
 
+using namespace std;
+
 #define		BUFSIZE			255
 #define		PIPENAME		_T("\\\\.\\pipe\\mynamedpipe")
 
@@ -117,20 +119,27 @@ void Client()
 
 void Connect(int iNum)
 {
-	BOOL bExist = WaitNamedPipe(PIPENAME, 5000000);
-	if (!bExist)
+	HANDLE hNamePipe = NULL;
+	while (1)
 	{
-		std::cout<<"fail1: "<<GetLastError()<<std::endl;
-		return ;
+		BOOL bExist = WaitNamedPipe(PIPENAME, NMPWAIT_WAIT_FOREVER);
+		if (!bExist)
+		{
+			std::cout<<"fail1: "<<GetLastError()<<std::endl;
+			//continue;
+		}
+
+		hNamePipe = CreateFile(PIPENAME, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
+
+		if (NULL == hNamePipe || hNamePipe == INVALID_HANDLE_VALUE)
+		{
+			std::cout<<"fail2:"<<GetLastError()<<std::endl;
+			continue ;
+		}
+
+		break;
 	}
 
-	HANDLE hNamePipe = CreateFile(PIPENAME, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-
-	if (NULL == hNamePipe)
-	{
-		std::cout<<"fail2"<<std::endl;
-		return ;
-	}
 
 	int i = 0;
 	//while (++i < 100)
@@ -143,6 +152,16 @@ void Connect(int iNum)
 		std::cout<<"write value "<<i<<":, result:"<<bRet<<", "<<szWrite<<std::endl;
 	}
 	std::cout<<"write end"<<std::endl;
+
+	OVERLAPPED overlap = {0};
+	overlap.hEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+
+	char cReceive[MAX_PATH] = {0};
+	DWORD dwRead = 0;
+	ReadFile(hNamePipe, cReceive, MAX_PATH, &dwRead, &overlap);
+
+	//WaitForSingleObject(overlap.hEvent, 5000000);
+	cout<<"receive:"<<cReceive<<endl;
 
 // 	Sleep(2000);
 // 	char szRead[MAX_PATH] = {0};
@@ -172,7 +191,6 @@ int  _tmain(_In_ HINSTANCE hInstance,
 		Sleep(1000);
 	}
 	
-
 
 	system("pause");
 	return 0;
