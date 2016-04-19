@@ -158,7 +158,7 @@ int MultiPipe()
 		// returns zero, GetLastError returns ERROR_PIPE_CONNECTED. 
 
 		fConnected = ConnectNamedPipe(hPipe, NULL) ? TRUE : (GetLastError() == ERROR_PIPE_CONNECTED); 
-		ERROR_PIPE_BUSY
+		
 		if (fConnected) 
 		{ 
 			printf("Client connected, creating a processing thread.\n"); 

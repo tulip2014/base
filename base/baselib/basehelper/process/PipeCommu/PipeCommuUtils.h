@@ -19,9 +19,13 @@
 class PipeCommuUtils
 {
 private:
-	PipeUtils m_PipeUtils;
+	DWORD dwStatus;		//µ±Ç°×´Ì¬
+	HANDLE hInstance;   //pipe instance
+
 public:
 	PipeCommuUtils();
 	~PipeCommuUtils();
-	int StartPipeServer(LPCWSTR lpPipeName);
+	DWORD StartPipeServer(LPCWSTR lpPipeName);
+	DWORD StopPipeServer();
+
 };

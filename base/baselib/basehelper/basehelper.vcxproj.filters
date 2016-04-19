@@ -123,6 +123,9 @@
     <ClInclude Include="test\PipeCommuTest.h">
       <Filter>test</Filter>
     </ClInclude>
+    <ClInclude Include="process\PipeCommu\PipeCommuUtils.h">
+      <Filter>process\PipeCommu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -187,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="test\PipeCommuTest.cpp">
       <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="process\PipeCommu\PipeCommuUtils.cpp">
+      <Filter>process\PipeCommu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

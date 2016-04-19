@@ -44,10 +44,10 @@ private:
 	DWORD dwArg1;  //等待时间
 	DWORD dwArg2;
 	DWORD dwArg3;
-	DWORD dwArg4;
+	DWORD dwArg4;  //等待时间
 	DWORD dwArg20[25];
 	DWORD dwArg30;
-	HANDLE dwArg31;    //创建的新管道
+	HANDLE dwArg31;    //创建的新管道 //(创建的文件句柄)
 	OVERLAPPED overlap;
 	//HANDLE hdArg36;   //enent handle
 	HANDLE hdArg37;   //event handle
