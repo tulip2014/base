@@ -15,6 +15,13 @@
 
 #include "PipeUtils.h"
 
+#define		THREAD_STATUS_STOP		2
+
+typedef struct _PIPECOMMUINFO 
+{
+	DWORD dwStatus;
+	HANDLE hThreadHandle;
+}PIPECOMMUINFO;
 
 class PipeCommuUtils
 {

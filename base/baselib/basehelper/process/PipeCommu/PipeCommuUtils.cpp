@@ -24,7 +24,16 @@ unsigned WINAPI PipeServerThread(void* lpParam)
 
 		PipeUtils* pipeServer = new PipeUtils();
 
-		pipeServer->CreateNewPipe(PIPENAME);
+		while (1)
+		{
+			HANDLE hTempHandle = pipeServer->CreateNewPipe(PIPENAME);
+			if (hTempHandle != NULL)
+			{
+				break;
+			}
+		}
+		
+
 		
 		pipeServer->WaitforConnect();
 
@@ -36,22 +45,19 @@ unsigned WINAPI PipeServerThread(void* lpParam)
 DWORD PipeCommuUtils::StartPipeServer( LPCWSTR lpPipeName )
 {
 	UINT nThreadID = 0;
-	m_hRequestThread = (HANDLE)_beginthreadex(NULL, 0, PipeServerThread, this, 0, &nThreadID);
+	hInstance = (HANDLE)_beginthreadex( NULL, 0, PipeServerThread, this, 0, &nThreadID );
 
-	if (NULL != m_hRequestThread)
+	if ( NULL != hInstance )
 	{
-		m_bStarted = TRUE;
-
 		return S_OK;
 	}
 
 	return E_FAIL;
-	return 0;
 }
 
 DWORD PipeCommuUtils::StopPipeServer()
 {
-
+	dwStatus = THREAD_STATUS_STOP;
 }
 
 
