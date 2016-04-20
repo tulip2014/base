@@ -198,15 +198,15 @@ int  _tmain(_In_ HINSTANCE hInstance,
  	// TODO: 在此放置代码。
 	DWORD dwThreadId = GetCurrentThreadId();
 	int i = 0;
-	while (++i < 100)
+	while (++i < 10000)
 	{
-		CreateThread(NULL, 0, ThreadFunc, NULL, 0, NULL);
-		//test();
+		//CreateThread(NULL, 0, ThreadFunc, NULL, 0, NULL);
+		test();
 		//Connect(i);
 		//Sleep(1000);
 	}
 	
-
+	Sleep(500000000);
 	system("pause");
 	return 0;
 }

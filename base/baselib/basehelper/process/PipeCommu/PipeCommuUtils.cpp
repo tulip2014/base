@@ -4,10 +4,13 @@
 #include <process.h>
 #include <iostream>
 
+
 PipeCommuUtils::PipeCommuUtils()
 {
 	m_dwStatus = THREAD_STATUS_RUN;
 	m_hInstance = NULL;
+	m_Handle[0] = 0;
+	m_Handle[1] = CreateEvent(NULL, TRUE, FALSE, NULL);
 }
 
 PipeCommuUtils::~PipeCommuUtils()
@@ -26,34 +29,64 @@ DWORD PipeCommuUtils::SetStatus(DWORD dwStatus)
 	return 0;
 }
 
-unsigned WINAPI PipeWorkThread(void* lpParam)
+DWORD PipeCommuUtils::SetCallbackFunc( PipeReadAndWrite lpCallbackFunc )
 {
-	std::cout<<"start client thread :"<<GetCurrentThreadId()<<std::endl;
-	PipeUtils* hPipeInstance = (PipeUtils*)lpParam;
+	m_CallbackFunc = lpCallbackFunc;
+	return 0;
+}
+
+PipeReadAndWrite PipeCommuUtils::GetCallbackFunc()
+{
+	return m_CallbackFunc;
+}
+
+unsigned PipeCommuUtils::PipeWorkThread(void* lpParam)
+{
+	//std::cout<<"start client thread :"<<GetCurrentThreadId()<<std::endl;
+	PINSTANCEINFO hInstance = (PINSTANCEINFO)lpParam;
+	PipeCommuUtils * commuUtils = hInstance->pipeCommu;
 
 	char szReceive[MAX_PATH] = {0};
 	DWORD dwSize = MAX_PATH;
-	hPipeInstance->Receive(szReceive, &dwSize, 100000);
-	std::cout<<GetCurrentThreadId()<<", receive:"<<szReceive<<std::endl;
+	DWORD dwRet = hInstance->pipeUtils->Receive(szReceive, &dwSize, 100000);
+	if (dwRet != 0)
+	{
+		std::cout<<"receive fail"<<std::endl;
+	}
+
+	void* lpSendBuffer = NULL;
+	DWORD dwSendSize = 0;
+	commuUtils->GetCallbackFunc()(szReceive, &dwSize, &lpSendBuffer, &dwSendSize);
+
+	char* lpSend = NULL;
+	if (lpSendBuffer == NULL || dwSendSize == 0)
+	{
+		lpSend = new char(0);
+		dwSendSize = 1;
+	}
 
 	char szSend[MAX_PATH] = {0};
 	dwSize = MAX_PATH;
 	sprintf_s(szSend, MAX_PATH, "%d ***server send id:%d", GetCurrentThreadId(), GetCurrentThreadId());
-	hPipeInstance->Send(szSend, &dwSize, 100000);
-	std::cout<<szSend<<std::endl;
+	dwRet = hInstance->pipeUtils->Send(szSend, &dwSize, 100000);
+	if (dwRet != 0)
+	{
+		std::cout<<"Send fail"<<std::endl;
+	}
+	//std::cout<<szSend<<std::endl;
 
 	//这里需要断开连接
-	hPipeInstance->Close();
+	hInstance->pipeUtils->Close();
 	return 0;
 }
 
-unsigned WINAPI PipeServerThread(void* lpParam)
+unsigned PipeCommuUtils::PipeServerThread(void* lpParam)
 {
-	PipeCommuUtils* pipeUtils = (PipeCommuUtils*)lpParam;
-	std::cout<<"start server thread"<<std::endl;
+	PipeCommuUtils* pipeCommuUtils = (PipeCommuUtils*)lpParam;
+	//std::cout<<"start server thread"<<std::endl;
 	while (1)
 	{
-		DWORD dwStatus = pipeUtils->GetStatus();
+		DWORD dwStatus = pipeCommuUtils->GetStatus();
 		if (THREAD_STATUS_PAUSE == dwStatus)
 		{
 			Sleep(1000);
@@ -87,12 +120,15 @@ unsigned WINAPI PipeServerThread(void* lpParam)
 		}
 		
 		UINT nThreadID = 0;
-		HANDLE hThread = (HANDLE)_beginthreadex( NULL, 0, PipeWorkThread, (void*)pipeServer, 0, &nThreadID );
+		INSTANCEINFO instanceInfo = {0};
+		instanceInfo.pipeUtils = pipeServer;
+		instanceInfo.pipeCommu = pipeCommuUtils;
+		HANDLE hThread = (HANDLE)_beginthreadex( NULL, 0, PipeWorkThread, (void*)&instanceInfo, 0, &nThreadID );
 
 		CloseHandle(hThread); 
 	}
 
-	delete pipeUtils;
+	delete pipeCommuUtils;
 	return 0;
 }
 
@@ -124,22 +160,31 @@ DWORD PipeCommuUtils::StartClient( LPCWSTR lpPipeName )
 	DWORD dwRet = pipeClient.Connect(lpPipeName);
 	if (dwRet != 0)
 	{
+		std::cout<<"Connect fail"<<std::endl;
 		return 1;
 	}
 
-	//Sleep(50000);
+	Sleep(100);
 	//std::cout<<"start write"<<std::endl;
 
 	char szSend[MAX_PATH] = {0};
 	DWORD dwSize = MAX_PATH;
 	sprintf_s(szSend, MAX_PATH, "%d ### id: %d, client send:%d", GetCurrentThreadId(), GetCurrentThreadId(), &pipeClient);
-	pipeClient.Send(szSend, &dwSize, 100000);
-	std::cout<<szSend<<std::endl;
+	dwRet = pipeClient.Send(szSend, &dwSize, 100000);
+	if (dwRet != 0)
+	{
+		std::cout<<"Send fail"<<std::endl;
+	}
+	//std::cout<<szSend<<std::endl;
 
 	char szReceive[MAX_PATH] = {0};
 	dwSize = MAX_PATH;
-	pipeClient.Receive(szReceive, &dwSize, 100000);
-	std::cout<<GetCurrentThreadId()<<", receive: "<<szReceive<<std::endl;
+	dwRet = pipeClient.Receive(szReceive, &dwSize, 100000);
+	if (dwRet != 0)
+	{
+		std::cout<<"Send fail"<<std::endl;
+	}
+	//std::cout<<GetCurrentThreadId()<<", receive: "<<szReceive<<std::endl;
 
 	//这里需要断开连接
 	//pipeClient.Close();

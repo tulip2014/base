@@ -256,10 +256,19 @@ void CreateTest()
 	//std::cout<<"write end"<<std::endl;
 }
 
+DWORD ReadFunc(void* lpReadBuffer, LPDWORD dwReadSize, void** lpWriterBuffer, LPDWORD dwWriteSize)
+{
+	cout<<lpReadBuffer<<endl;
+	*lpWriterBuffer = (void*)0x1234;
+	*dwWriteSize = 5;
+	return 0;
+}
+
 
 void test()
 {
 	PipeCommuUtils* test = new PipeCommuUtils();
+	test->SetCallbackFunc(&ReadFunc);
 	test->StartPipeServer(PIPESERVERNAME);
 }
 

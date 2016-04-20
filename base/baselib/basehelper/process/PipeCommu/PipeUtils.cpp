@@ -132,13 +132,15 @@ DWORD PipeUtils::WaitforConnect()
 	if ( !bConnected )
 	{
 		DWORD dwError = GetLastError();
-		if ( dwError != ERROR_IO_PENDING && ERROR_PIPE_CONNECTED != dwError )
+		if ( dwError == ERROR_IO_PENDING )
 		{
-			return 1;
+			WaitForSingleObject(m_Overlap.hEvent, INFINITE);
+		}
+		else if ( dwError != ERROR_PIPE_CONNECTED )
+		{
+			dwResult = 1;
 		}
 	}
-
-	WaitForSingleObject(m_Overlap.hEvent, INFINITE);
 
 	return dwResult;
 }
