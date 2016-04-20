@@ -57,9 +57,15 @@ DWORD PipeUtils::Close()
 	{
 		SetEvent(m_Overlap.hEvent);
 		CloseHandle(m_Overlap.hEvent);
+		m_Overlap.hEvent = NULL;
 	}
 
-	CloseHandle(m_hInstance);
+	if (m_hInstance != NULL)
+	{
+		CloseHandle(m_hInstance);
+		m_hInstance = NULL;
+	}
+	
 	return 0;
 }
 

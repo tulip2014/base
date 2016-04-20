@@ -175,9 +175,34 @@ void Connect(int iNum)
 	CloseHandle(hNamePipe);
 }
 
+DWORD ReadFunc(void* lpReadBuffer, LPDWORD dwReadSize)
+{
+	cout<<(char*)lpReadBuffer<<endl;
+
+	return 0;
+}
+
+DWORD WriteFunc(void** lpWriteBuffer, LPDWORD dwWriteSize)
+{
+	char sSend[MAX_PATH] = {0};
+	sprintf_s(sSend, MAX_PATH, "client send id : %d", GetCurrentThreadId());
+	*dwWriteSize = strlen(sSend) + 1;
+	void* lpBuf = new char[*dwWriteSize];
+	memcpy(lpBuf, sSend, *dwWriteSize);
+
+	*lpWriteBuffer = lpBuf;
+	cout<<sSend<<endl;
+
+	return 0;
+}
+
 void test()
 {
 	PipeCommuUtils client;
+	CALLBACKFUNC tmp = {0};
+	tmp.readFunc = ReadFunc;
+	tmp.writeFunc = WriteFunc;
+	client.SetCallbackFunc(tmp);
 	client.StartClient(PIPESERVERNAME);
 }
 
@@ -198,7 +223,7 @@ int  _tmain(_In_ HINSTANCE hInstance,
  	// TODO: 在此放置代码。
 	DWORD dwThreadId = GetCurrentThreadId();
 	int i = 0;
-	while (++i < 10000)
+	while (++i < 100)
 	{
 		//CreateThread(NULL, 0, ThreadFunc, NULL, 0, NULL);
 		test();

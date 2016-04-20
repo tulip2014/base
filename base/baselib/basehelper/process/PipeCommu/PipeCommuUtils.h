@@ -23,7 +23,7 @@
 #define		PIPESERVERNAME			L"\\\\.\\pipe\\server_{2F39AD4F-25C8-42C7-A66E-06DEEBC0E0B1}"
 
 typedef DWORD (*PipeReadFunc)(void* lpBuffer, LPDWORD dwSize);
-typedef DWORD (*PipeWriteFunc)(void* lpBuffer, LPDWORD dwSize);
+typedef DWORD (*PipeWriteFunc)(void** lpBuffer, LPDWORD dwSize);
 typedef DWORD (*PipeReadAndWrite)(void* lpReadBuffer, LPDWORD dwReadSize, void** lpWriterBuffer, LPDWORD dwWriteSize);
 
 class PipeCommuUtils;
@@ -45,7 +45,7 @@ class PipeCommuUtils
 private:
 	DWORD  m_dwStatus;	  //server当前状态
 	HANDLE m_hInstance;   //pipe instance
-	PipeReadAndWrite m_CallbackFunc;  //设置的回调函数
+	CALLBACKFUNC m_CallbackFunc;  //设置的回调函数
 	HANDLE m_Handle[2];
 
 public:
@@ -53,8 +53,8 @@ public:
 	~PipeCommuUtils();
 	DWORD GetStatus();
 	DWORD SetStatus(DWORD dwStatus);
-	DWORD SetCallbackFunc(PipeReadAndWrite lpCallbackFunc);
-	PipeReadAndWrite GetCallbackFunc();
+	DWORD SetCallbackFunc(CALLBACKFUNC lpCallbackFunc);
+	PCALLBACKFUNC GetCallbackFunc();
 
 	DWORD StartPipeServer(LPCWSTR lpPipeName);
 	DWORD StopPipeServer();

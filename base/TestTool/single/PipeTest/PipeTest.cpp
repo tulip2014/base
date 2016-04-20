@@ -256,19 +256,34 @@ void CreateTest()
 	//std::cout<<"write end"<<std::endl;
 }
 
-DWORD ReadFunc(void* lpReadBuffer, LPDWORD dwReadSize, void** lpWriterBuffer, LPDWORD dwWriteSize)
+DWORD ReadFunc(void* lpReadBuffer, LPDWORD dwReadSize)
 {
-	cout<<lpReadBuffer<<endl;
-	*lpWriterBuffer = (void*)0x1234;
-	*dwWriteSize = 5;
+	cout<<(char*)lpReadBuffer<<endl;
+
 	return 0;
 }
 
+DWORD WriteFunc(void** lpWriteBuffer, LPDWORD dwWriteSize)
+{
+	char sSend[MAX_PATH] = {0};
+	sprintf_s(sSend, MAX_PATH, "server send id : %d", GetCurrentThreadId());
+	*dwWriteSize = strlen(sSend) + 1;
+	void* lpBuf = new char[*dwWriteSize];
+	memcpy(lpBuf, sSend, *dwWriteSize);
+
+	*lpWriteBuffer = lpBuf;
+	cout<<sSend<<endl;
+
+	return 0;
+}
 
 void test()
 {
 	PipeCommuUtils* test = new PipeCommuUtils();
-	test->SetCallbackFunc(&ReadFunc);
+	CALLBACKFUNC tmp = {0};
+	tmp.readFunc = ReadFunc;
+	tmp.writeFunc = WriteFunc;
+	test->SetCallbackFunc(tmp);
 	test->StartPipeServer(PIPESERVERNAME);
 }
 

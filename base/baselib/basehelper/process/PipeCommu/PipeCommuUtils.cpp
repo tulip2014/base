@@ -3,6 +3,7 @@
 #include "PipeUtils.h"
 #include <process.h>
 #include <iostream>
+#include <string.h>
 
 
 PipeCommuUtils::PipeCommuUtils()
@@ -29,55 +30,65 @@ DWORD PipeCommuUtils::SetStatus(DWORD dwStatus)
 	return 0;
 }
 
-DWORD PipeCommuUtils::SetCallbackFunc( PipeReadAndWrite lpCallbackFunc )
+DWORD PipeCommuUtils::SetCallbackFunc( CALLBACKFUNC lpCallbackFunc )
 {
 	m_CallbackFunc = lpCallbackFunc;
 	return 0;
 }
 
-PipeReadAndWrite PipeCommuUtils::GetCallbackFunc()
+PCALLBACKFUNC PipeCommuUtils::GetCallbackFunc()
 {
-	return m_CallbackFunc;
+	return &m_CallbackFunc;
 }
 
 unsigned PipeCommuUtils::PipeWorkThread(void* lpParam)
 {
-	//std::cout<<"start client thread :"<<GetCurrentThreadId()<<std::endl;
+	DWORD dwResult = 0;
 	PINSTANCEINFO hInstance = (PINSTANCEINFO)lpParam;
+	PipeUtils* pipeUtils = hInstance->pipeUtils;
 	PipeCommuUtils * commuUtils = hInstance->pipeCommu;
 
 	char szReceive[MAX_PATH] = {0};
 	DWORD dwSize = MAX_PATH;
-	DWORD dwRet = hInstance->pipeUtils->Receive(szReceive, &dwSize, 100000);
+	DWORD dwRet = pipeUtils->Receive(szReceive, &dwSize, 100000);
 	if (dwRet != 0)
 	{
-		std::cout<<"receive fail"<<std::endl;
+		return 1;
 	}
 
+	if (NULL != commuUtils->GetCallbackFunc()->readFunc)
+	{
+		commuUtils->GetCallbackFunc()->readFunc(szReceive, &dwSize);
+	}
+	
 	void* lpSendBuffer = NULL;
 	DWORD dwSendSize = 0;
-	commuUtils->GetCallbackFunc()(szReceive, &dwSize, &lpSendBuffer, &dwSendSize);
-
-	char* lpSend = NULL;
-	if (lpSendBuffer == NULL || dwSendSize == 0)
+	if (NULL != commuUtils->GetCallbackFunc()->writeFunc)
 	{
-		lpSend = new char(0);
+		commuUtils->GetCallbackFunc()->writeFunc(&lpSendBuffer, &dwSendSize);
+	}
+
+	if (dwSendSize == 0 && lpSendBuffer != NULL)
+	{
+		delete lpSendBuffer;
+		lpSendBuffer = NULL;
+	}
+
+	if (lpSendBuffer == NULL)
+	{
+		lpSendBuffer = new char('e');
 		dwSendSize = 1;
 	}
 
-	char szSend[MAX_PATH] = {0};
-	dwSize = MAX_PATH;
-	sprintf_s(szSend, MAX_PATH, "%d ***server send id:%d", GetCurrentThreadId(), GetCurrentThreadId());
-	dwRet = hInstance->pipeUtils->Send(szSend, &dwSize, 100000);
+	dwRet = pipeUtils->Send(lpSendBuffer, &dwSendSize, 100000);
 	if (dwRet != 0)
 	{
-		std::cout<<"Send fail"<<std::endl;
+		dwResult = 2;
 	}
-	//std::cout<<szSend<<std::endl;
 
-	//这里需要断开连接
-	hInstance->pipeUtils->Close();
-	return 0;
+	delete pipeUtils;
+	delete lpSendBuffer;
+	return dwResult;
 }
 
 unsigned PipeCommuUtils::PipeServerThread(void* lpParam)
@@ -99,6 +110,11 @@ unsigned PipeCommuUtils::PipeServerThread(void* lpParam)
 		}
 
 		PipeUtils* pipeServer = new PipeUtils();
+		if (pipeServer == NULL)
+		{
+			continue;
+		}
+
 		while (1)
 		{
 			HANDLE hTempHandle = pipeServer->CreateNewPipe(PIPESERVERNAME);
@@ -128,7 +144,6 @@ unsigned PipeCommuUtils::PipeServerThread(void* lpParam)
 		CloseHandle(hThread); 
 	}
 
-	delete pipeCommuUtils;
 	return 0;
 }
 
@@ -164,18 +179,24 @@ DWORD PipeCommuUtils::StartClient( LPCWSTR lpPipeName )
 		return 1;
 	}
 
-	Sleep(100);
-	//std::cout<<"start write"<<std::endl;
+	void* lpBuf = NULL;
+	DWORD dwSize = 0;
+	if (m_CallbackFunc.writeFunc != NULL)
+	{
+		m_CallbackFunc.writeFunc(&lpBuf, &dwSize);
+	}
 
-	char szSend[MAX_PATH] = {0};
-	DWORD dwSize = MAX_PATH;
-	sprintf_s(szSend, MAX_PATH, "%d ### id: %d, client send:%d", GetCurrentThreadId(), GetCurrentThreadId(), &pipeClient);
-	dwRet = pipeClient.Send(szSend, &dwSize, 100000);
+	if (lpBuf == NULL)
+	{
+		lpBuf = new char('n');
+		dwSize = 1;
+	}
+
+	dwRet = pipeClient.Send(lpBuf, &dwSize, 100000);
 	if (dwRet != 0)
 	{
 		std::cout<<"Send fail"<<std::endl;
 	}
-	//std::cout<<szSend<<std::endl;
 
 	char szReceive[MAX_PATH] = {0};
 	dwSize = MAX_PATH;
@@ -184,11 +205,16 @@ DWORD PipeCommuUtils::StartClient( LPCWSTR lpPipeName )
 	{
 		std::cout<<"Send fail"<<std::endl;
 	}
-	//std::cout<<GetCurrentThreadId()<<", receive: "<<szReceive<<std::endl;
+	
+	if (m_CallbackFunc.readFunc != NULL)
+	{
+		m_CallbackFunc.readFunc(szReceive, &dwSize);
+	}
 
 	//这里需要断开连接
-	//pipeClient.Close();
-
+	pipeClient.Close();
+	delete lpBuf;
+	lpBuf = NULL;
 	return 0;
 }
 
