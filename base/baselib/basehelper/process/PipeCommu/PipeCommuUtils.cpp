@@ -4,6 +4,7 @@
 #include <process.h>
 #include <iostream>
 #include <string.h>
+#include <memory>
 
 
 PipeCommuUtils::PipeCommuUtils()
@@ -45,7 +46,7 @@ unsigned PipeCommuUtils::PipeWorkThread(void* lpParam)
 {
 	DWORD dwResult = 0;
 	PINSTANCEINFO hInstance = (PINSTANCEINFO)lpParam;
-	PipeUtils* pipeUtils = hInstance->pipeUtils;
+	std::auto_ptr<PipeUtils> pipeUtils(hInstance->pipeUtils);
 	PipeCommuUtils * commuUtils = hInstance->pipeCommu;
 
 	char szReceive[MAX_PATH] = {0};
@@ -85,16 +86,17 @@ unsigned PipeCommuUtils::PipeWorkThread(void* lpParam)
 	{
 		dwResult = 2;
 	}
-
-	delete pipeUtils;
+	
 	delete lpSendBuffer;
+
+	_endthreadex(0);
 	return dwResult;
 }
 
 unsigned PipeCommuUtils::PipeServerThread(void* lpParam)
 {
 	PipeCommuUtils* pipeCommuUtils = (PipeCommuUtils*)lpParam;
-	//std::cout<<"start server thread"<<std::endl;
+
 	while (1)
 	{
 		DWORD dwStatus = pipeCommuUtils->GetStatus();
@@ -110,7 +112,9 @@ unsigned PipeCommuUtils::PipeServerThread(void* lpParam)
 		}
 
 		PipeUtils* pipeServer = new PipeUtils();
-		if (pipeServer == NULL)
+		std::shared_ptr<PipeUtils>  a(new PipeUtils());
+		
+		if (a == NULL)
 		{
 			continue;
 		}
@@ -139,7 +143,12 @@ unsigned PipeCommuUtils::PipeServerThread(void* lpParam)
 		INSTANCEINFO instanceInfo = {0};
 		instanceInfo.pipeUtils = pipeServer;
 		instanceInfo.pipeCommu = pipeCommuUtils;
-		HANDLE hThread = (HANDLE)_beginthreadex( NULL, 0, PipeWorkThread, (void*)&instanceInfo, 0, &nThreadID );
+		HANDLE hThread = (HANDLE)_beginthreadex( NULL, 0, PipeWorkThread, (void*)&instanceInfo, CREATE_SUSPENDED, &nThreadID );
+
+		if ( hThread )
+		{
+			ResumeThread(hThread);
+		}
 
 		CloseHandle(hThread); 
 	}

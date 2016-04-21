@@ -244,8 +244,6 @@ DWORD PipeUtils::Send( void* lpBuffer, LPDWORD lpSendSize, DWORD dwWaitTime )
 	BOOL bRet = WriteFile( m_hInstance, lpBuffer, dwWriteBufferSize, lpSendSize, &m_Overlap );
 	if (!bRet)
 	{
-		DWORD dwError = GetLastError();
-
 		DWORD dwTempWait = dwWaitTime ? dwWaitTime : m_dwWaitTime;
 		DWORD dwWaitResult = WaitForSingleObject(m_Overlap.hEvent, dwTempWait);
 		if ( dwWaitResult == WAIT_OBJECT_0 )

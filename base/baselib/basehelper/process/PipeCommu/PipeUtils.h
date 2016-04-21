@@ -24,7 +24,7 @@ private:
 	DWORD m_dwReceiveBufferLength;
 	DWORD m_dwWaitTime;	  //等待时间
 	HANDLE m_hInstance;   //server端表示创建的管道，client端表示打开的文件
-	TCHAR m_szPipeName[MAX_PATH];  //管道名
+	WCHAR m_szPipeName[MAX_PATH];  //管道名
 	OVERLAPPED m_Overlap; //
 
 private:
