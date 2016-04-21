@@ -47,12 +47,14 @@ private:
 	HANDLE m_hInstance;   //pipe instance
 	CALLBACKFUNC m_CallbackFunc;  //设置的回调函数
 	HANDLE m_Handle[2];
+	WCHAR  m_PipeName[MAX_PATH];
 
 public:
 	PipeCommuUtils();
 	~PipeCommuUtils();
 	DWORD GetStatus();
 	DWORD SetStatus(DWORD dwStatus);
+	DWORD GetPipeName(LPWSTR lpPipeName, DWORD dwSize);
 	DWORD SetCallbackFunc(CALLBACKFUNC lpCallbackFunc);
 	PCALLBACKFUNC GetCallbackFunc();
 

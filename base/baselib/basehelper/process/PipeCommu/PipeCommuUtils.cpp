@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string.h>
 #include <memory>
+#include <tchar.h>
 
 
 PipeCommuUtils::PipeCommuUtils()
@@ -13,6 +14,7 @@ PipeCommuUtils::PipeCommuUtils()
 	m_hInstance = NULL;
 	m_Handle[0] = 0;
 	m_Handle[1] = CreateEvent(NULL, TRUE, FALSE, NULL);
+	memset(m_PipeName, 0, sizeof(WCHAR) * MAX_PATH);
 }
 
 PipeCommuUtils::~PipeCommuUtils()
@@ -29,6 +31,16 @@ DWORD PipeCommuUtils::SetStatus(DWORD dwStatus)
 {
 	m_dwStatus = dwStatus;
 	return 0;
+}
+
+DWORD PipeCommuUtils::GetPipeName( LPWSTR lpPipeName, DWORD dwSize )
+{
+	if (lpPipeName == NULL && dwSize == 0)
+	{
+		return 1;
+	}
+
+	_tcscpy_s(lpPipeName, dwSize, m_PipeName);
 }
 
 DWORD PipeCommuUtils::SetCallbackFunc( CALLBACKFUNC lpCallbackFunc )
@@ -96,6 +108,8 @@ unsigned PipeCommuUtils::PipeWorkThread(void* lpParam)
 unsigned PipeCommuUtils::PipeServerThread(void* lpParam)
 {
 	PipeCommuUtils* pipeCommuUtils = (PipeCommuUtils*)lpParam;
+	WCHAR szPipeName[MAX_PATH] = {0};
+	pipeCommuUtils->GetPipeName(szPipeName, MAX_PATH);
 
 	while (1)
 	{
@@ -121,7 +135,7 @@ unsigned PipeCommuUtils::PipeServerThread(void* lpParam)
 
 		while (1)
 		{
-			HANDLE hTempHandle = pipeServer->CreateNewPipe(PIPESERVERNAME);
+			HANDLE hTempHandle = pipeServer->CreateNewPipe(szPipeName);
 			if (hTempHandle != INVALID_HANDLE_VALUE)
 			{
 				break;
@@ -158,6 +172,22 @@ unsigned PipeCommuUtils::PipeServerThread(void* lpParam)
 
 DWORD PipeCommuUtils::StartPipeServer( LPCWSTR lpPipeName )
 {
+	if (lpPipeName == NULL)
+	{
+		_tcscpy_s(m_PipeName, MAX_PATH, PIPENAME);
+	}
+	else
+	{
+		DWORD dwLength = _tcslen(lpPipeName);
+		if (dwLength > MAX_PATH - 1)
+		{
+			return 1;
+		}
+
+		_tcscpy_s(m_PipeName, MAX_PATH, PIPENAME);
+	}
+
+
 	UINT nThreadID = 0;
 	m_hInstance = (HANDLE)_beginthreadex( NULL, 0, PipeServerThread, this, 0, &nThreadID );
 
